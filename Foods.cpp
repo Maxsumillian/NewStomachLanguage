@@ -11,7 +11,30 @@ Foods::Foods(): Variable() {// this calls after parent constructor but it does n
     storeInMemory();
 }
 
-void Foods::operator=(std::string foods) {
-    dataValue = foods;
+//this doesnt work beacuse "test String" are actually cosnt cahr* so we need to convert it
+// Foods::Foods(std::string text) {
+//     dataType = "String";
+//     dataValue =  text;
+//     storeInMemory();
+// }
+// so we need to use this sadly
+Foods::Foods(const char* value) {
+    dataType = "String";
+    dataValue = value;
     storeInMemory();
+}
+
+
+Foods& Foods::operator=(const std::string& value) {
+    dataType = "String";
+    dataValue = value;
+    storeInMemory();
+    return *this;
+}
+
+Foods& Foods::operator=(const char* value) {
+    dataType = "String";
+    dataValue = value;
+    storeInMemory();
+    return *this;
 }

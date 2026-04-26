@@ -11,8 +11,12 @@
 class Foods : public Variable{
     public:
         Foods();
+        // Foods(std::string text);//kina dumb this doesn't work :(
+        Foods(const char* value);
 
-        void operator=(std::string foods);
+        // void operator=(std::string foods); doesnt work anymore beacuse of the char
+        Foods& operator=(const std::string& value);
+        Foods& operator=(const char* value);
 };
 
 

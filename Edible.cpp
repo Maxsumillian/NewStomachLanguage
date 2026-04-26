@@ -17,11 +17,6 @@ Edible::Edible(bool value) {
 }
 
 void Edible::operator=(bool value) {
-    if (value) {
-        dataValue = "true";
-    }
-    else {
-        dataValue = "false";
-    }
+    dataValue = (value ? "true" : "false");
     storeInMemory();
 }

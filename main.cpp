@@ -11,6 +11,7 @@ int main() {
     Foods test3;// test for strings
     Edible test4;// test for boolean
     Edible test5 = false;// requires constructor
+    Foods test6 = "test String";
 
 
     StomachLang::cpu.load(1);
