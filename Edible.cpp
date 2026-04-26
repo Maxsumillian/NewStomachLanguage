@@ -10,9 +10,14 @@ Edible::Edible(): Variable() {
     storeInMemory();
 }
 
-void Edible::operator=(bool Edible) {
+Edible::Edible(bool value) {
+    dataType = "Bool";
+    dataValue = (value ? "true" : "false");
+    storeInMemory();
+}
 
-    if (Edible) {
+void Edible::operator=(bool value) {
+    if (value) {
         dataValue = "true";
     }
     else {

@@ -10,6 +10,7 @@ int main() {
     Calorie test2;// test for ints
     Foods test3;// test for strings
     Edible test4;// test for boolean
+    Edible test5 = false;// requires constructor
 
 
     StomachLang::cpu.load(1);

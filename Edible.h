@@ -10,6 +10,7 @@
 class Edible : public Variable{
 public:
     Edible();
+    Edible(bool value);
 
     void operator=(bool edible);
 };
