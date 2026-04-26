@@ -1,0 +1,69 @@
+﻿Project StomachLang
+
+1.) pick a good theme
+    - has to have parallel to input/output
+    - easy to understand
+    - creative/fun
+    I chose eating and excreting
+
+2.) figure out big picture
+    - four main parts
+        - Purpose is for user to use custom stomach Language in main
+        - Custom Language Class/ (main backend for code where static files and everything connects to)
+        - virtual CPU (talks to memory class and manages operations)
+        - virtual Memory (storage)
+
+3.) understand limitations and tips
+    - Class structured #define
+    - TDD (test driven development) essentially test alot in parts and design as needed.
+    - weekly progress reports to look at progress and verify projects from professor.
+    - Memory is stored as a string and only strings so will require a parser(coder/decoder)
+    - best coding practices
+
+4.) structure project (Big thinking)
+    - how do cpu and memory talk?           through reference: do not create or attach multiple objects with composition
+    - where do i put them?                  Because Lang is my back end all my stuff goes there
+
+    - How is my langauge going to work?     My langauge will have classes that mimic base Datatypes They will contain a
+                                            Name, DataType, Address(located in variable for simple access) The user will
+                                            Define these Data Types by declaring objects and using the assign operator
+                                            to set value. The classes will go through the virtual cpu then virtual
+                                            memory to set address.
+
+    - override, OverRide, OVERRIDE!         All my classes for variables will use operator overrides to get clean syntax
+
+5.) More structure
+
+        Main (include "langauge.h" ONLY) clean slate for user to try out custom langauge
+
+        Language (Back-end used as a web to combine all parts and structure project)
+
+        Language classes
+            replacements for all basic coding things such as
+                - in out stream
+                - variables
+                    - boolean
+                    - int
+                    - strings
+                    - floats
+                    - etc.
+                - potentially loops and conditinals
+
+        CPU
+            - Load
+            - Store
+            - arithmic operators
+            - what is a accumulator? essentially like ram for a cpu temp storage used for varible manipulation
+
+        Memory
+            - only stores strings
+            - limited set Memory
+            - Error handling on out-of-bounds memory
+            - Read
+            - write
+
+
+6.) polish and refine
+        - fix data (private,protected,public)
+        - const data (I need to implement this not used to using const yet)
+        - pointers & references (saves on speed much faster [also not used to this yet])
