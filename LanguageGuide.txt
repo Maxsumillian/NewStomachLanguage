@@ -12,3 +12,11 @@ String = Foods
         coffee = true;
 
         Edible Plane = false;
+
+        Foods apple = "apple";
+        Foods pie;
+        pie = "pie";
+
+        Calores applePie = 580;
+        Calories milkShake;
+        milkShake = 300;
