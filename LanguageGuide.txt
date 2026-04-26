@@ -1,0 +1,14 @@
+﻿Langauge Guide
+
+
+Varibles
+
+Bool = Edible
+Integer = Calories
+String = Foods
+
+    Examples:
+        Edible coffee;
+        coffee = true;
+
+        Edible Plane = false;
