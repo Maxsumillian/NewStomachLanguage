@@ -10,13 +10,15 @@ String = Foods
     Examples:
         Edible coffee;
         coffee = true;
-
         Edible Plane = false;
+        Edible car(false);
 
         Foods apple = "apple";
         Foods pie;
         pie = "pie";
+        honey("honey");
 
         Calores applePie = 580;
         Calories milkShake;
         milkShake = 300;
+        Calories Cake(800);
