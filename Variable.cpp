@@ -37,4 +37,18 @@ void Variable::printTest() {
     std::cout << "\n the Variable " << dataType << " is located at memory[" << address << "]" << " The MaxAddress to be incremented to is at " << maxAddress << std::endl;
 }
 
+void Variable::operator+(Variable var2) {
+    StomachLang::cpu.add(dataType +":"+dataValue, var2.getType() + ":" + var2.getValue());// this adds into register but how do i take that and use it here?
 
+    // std::cout << dataType +":"+dataValue + var2.getType() + ":" + var2.getValue();
+}
+
+
+void Variable::operator-(Variable var2){
+    StomachLang::cpu.sub(dataType +":"+dataValue, var2.getType() + ":" + var2.getValue());
+    // std::cout << dataType +":"+dataValue + var2.getType() + ":" + var2.getValue();
+}
+
+void Variable::operator=(Variable var2) {
+
+}
