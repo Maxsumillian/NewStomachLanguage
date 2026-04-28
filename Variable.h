@@ -26,6 +26,11 @@ public:
 
     virtual void storeInMemory();
 
+    virtual void operator+(Variable var2);
+
+    virtual void operator-(Variable var2);
+
+    virtual void operator=(Variable var2);
 
     // void operator=(int Calories);
     // void operator=(bool Edible);
