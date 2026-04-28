@@ -46,44 +46,59 @@ int main() {
 
     //since its from cpu it returns the encoded values
     //prints out what's stored in my virtual memory
-    StomachLang::cpu.load(1);
-    StomachLang::cpu.DEVELOPER_Print();
-
-    StomachLang::cpu.load(2);
-    StomachLang::cpu.DEVELOPER_Print();
-
-    StomachLang::cpu.load(3);
-    StomachLang::cpu.DEVELOPER_Print();
-
-    StomachLang::cpu.load(4);
-    StomachLang::cpu.DEVELOPER_Print();
-
-    StomachLang::cpu.load(5);
-    StomachLang::cpu.DEVELOPER_Print();
-
-    StomachLang::cpu.load(6);
-    StomachLang::cpu.DEVELOPER_Print();
-
-    StomachLang::cpu.load(7);
-    StomachLang::cpu.DEVELOPER_Print();
-
-    std::cout << std::endl << "Test Addition:";
-    test2 + test2;
-    StomachLang::cpu.DEVELOPER_Print();
-
-    test + test2;
-    StomachLang::cpu.DEVELOPER_Print();
-
-    test3 + test6;
-    StomachLang::cpu.DEVELOPER_Print();
+    // StomachLang::cpu.load(1);
 
 
-    test3 - test6;
-    StomachLang::cpu.DEVELOPER_Print();
+    // StomachLang::cpu.DEVELOPER_Print();
+    //
+    // StomachLang::cpu.load(2);
+    // StomachLang::cpu.DEVELOPER_Print();
+    //
+    // StomachLang::cpu.load(3);
+    // StomachLang::cpu.DEVELOPER_Print();
+    //
+    // StomachLang::cpu.load(4);
+    // StomachLang::cpu.DEVELOPER_Print();
+    //
+    // StomachLang::cpu.load(5);
+    // StomachLang::cpu.DEVELOPER_Print();
+    //
+    // StomachLang::cpu.load(6);
+    // StomachLang::cpu.DEVELOPER_Print();
+    //
+    // StomachLang::cpu.load(7);
+    // StomachLang::cpu.DEVELOPER_Print();
+    //
+    // std::cout << std::endl << "Test Addition:";
+    // test2 + test2;
+    // StomachLang::cpu.DEVELOPER_Print();
+    //
+    // test + test2;
+    // StomachLang::cpu.DEVELOPER_Print();
+    //
+    // test3 + test6;
+    // StomachLang::cpu.DEVELOPER_Print();
+    //
+    //
+    // test3 - test6;
+    // StomachLang::cpu.DEVELOPER_Print();
 
     // test8 = test8 - test2;
-    test8 - test2;
+    test2 + test2 + test2;// chaining aquired!
     StomachLang::cpu.DEVELOPER_Print();
+
+
+    StomachLang::poop(test2);// returns 123
+
+    test2 = test2 + test2;// Yay i got it working!
+    StomachLang::cpu.DEVELOPER_Print();
+
+    StomachLang::poop(test2); // returns 246
+
+
+
+    // test8 - test2;
+    // StomachLang::cpu.DEVELOPER_Print();
 
     // StomachLang::poop(test2 - test8);// simple display for now
 
