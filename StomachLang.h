@@ -27,14 +27,17 @@ public:
 
 
     static void memoryToType(Variable var);//this converts memory encoded data to usable code data EX: string:hi -> "hi" // parser
+    //note: with my cpu i can decode the data already this is redundent
 
     static void poop(Variable var);
+    //also note: will proably have to make a new class for ostream maybe instead of this?
 
     // void eat(Calorie prompt);
 
 
 };
 
+// overloading the cout operator so i can use them like std::cout<<test2
 static std::ostream& operator<<(std::ostream& o, Calorie var)
 {
     o<<var.getValue();
