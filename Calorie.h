@@ -14,6 +14,8 @@ public:
 
     void operator=(int Calories);
 
+    Calorie& operator=(Variable var2);//
+
 };
 
 

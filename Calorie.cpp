@@ -22,3 +22,10 @@ void Calorie::operator=(int Calories) {
     dataValue = std::to_string(Calories);
     storeInMemory();
 }
+
+Calorie& Calorie::operator=(Variable var2) {
+    dataType = var2.getType();
+    dataValue = var2.getValue();
+    storeInMemory();
+    return *this;
+}
