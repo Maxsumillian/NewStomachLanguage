@@ -85,7 +85,7 @@ int main() {
     test8 - test2;
     StomachLang::cpu.DEVELOPER_Print();
 
-    StomachLang::poop(test2 - test8);// simple display for now
+    // StomachLang::poop(test2 - test8);// simple display for now
 
     //I didnt know you can add bools in c++
     // std::cout << true + false;//. funny implementation is to turn the value of bool into a int of either 0 or 1 for cases when adding to ints
