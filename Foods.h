@@ -17,6 +17,8 @@ class Foods : public Variable{
         // void operator=(std::string foods); doesnt work anymore beacuse of the char
         Foods& operator=(const std::string& value);
         Foods& operator=(const char* value);
+
+        Foods& operator=(Variable var2);
 };
 
 

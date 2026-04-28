@@ -87,13 +87,18 @@ int main() {
     test2 + test2 + test2;// chaining aquired!
     StomachLang::cpu.DEVELOPER_Print();
 
-
+    std::cout <<std::endl;
     StomachLang::poop(test2);// returns 123
 
     test2 = test2 + test2;// Yay i got it working!
     StomachLang::cpu.DEVELOPER_Print();
 
+    std::cout <<std::endl;
     StomachLang::poop(test2); // returns 246
+
+
+    test6 = test6 + test6;// nice i got strings working!
+    StomachLang::cpu.DEVELOPER_Print();
 
 
 

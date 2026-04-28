@@ -38,3 +38,11 @@ Foods& Foods::operator=(const char* value) {
     storeInMemory();
     return *this;
 }
+
+Foods& Foods::operator=(Variable var2) {
+    dataType = "String";
+    dataValue = var2.getValue();
+    storeInMemory();
+    return *this;
+
+}
