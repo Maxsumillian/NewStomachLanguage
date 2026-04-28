@@ -5,18 +5,18 @@
 #include "Edible.h"
 
 Edible::Edible(): Variable() {
-    dataType = "Bool";
-    dataValue = "NUll";
-    storeInMemory();
+    // dataType = "Bool";
+    // dataValue = "NUll";
+    storeInMemory("Bool","NUll");
 }
 
 Edible::Edible(bool value) {
-    dataType = "Bool";
-    dataValue = (value ? "true" : "false");
-    storeInMemory();
+    // dataType = "Bool";
+    // dataValue = (value ? "true" : "false");
+    storeInMemory("Bool",(value ? "true" : "false"));
 }
 
 void Edible::operator=(bool value) {
-    dataValue = (value ? "true" : "false");
-    storeInMemory();
+    // dataValue = (value ? "true" : "false");
+    storeInMemory("Bool",(value ? "true" : "false"));
 }

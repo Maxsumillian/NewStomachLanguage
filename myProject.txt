@@ -67,3 +67,43 @@
         - fix data (private,protected,public)
         - const data (I need to implement this not used to using const yet)
         - pointers & references (saves on speed much faster [also not used to this yet])
+
+
+features:
+========================================================================================================================
+MY CPU is able to create temp varibles to handle situations like  Variable [var] = [var1] + [var2] + [var3];
+this means that i need to overload the operator+ and have it return a Variable... however i dont want it to change the
+data of the var getting added to
+
+Ex: var1 + var2  one way to chain it is to return var1 = var1 + var2.
+however now var1 = var1 + var2 and not var1 anymore.
+
+My solution is have my cpu create a temp value that gets stored in the 0 slot (my memory doesn't use the 0 slot)
+then that temp variable is whats used keeping the values in var1 and var2 "safe"
+
+Now on the issue of creating a variable like this... Variable [var] = [var1] + [var2] + [var3];
+this actually calls a Constructor and it looks for one. specifically its looking for
+
+Variable(FatherVariable var); because the temp variable is kept as a FatherVariable that can later be turned into the correct child
+adding this constructor and assigning the values im able to actaully have this type of syntax
+
+Variable [var] = [var1] + [var2] + [var3];
+
+========================================================================================================================
+
+My Cpu has a parser/decoder it simply takes the values and can split them where a ":" shows up.
+
+========================================================================================================================
+
+My CPU has logic built in to reconize addition of multple diffrent datatypes and adds accordengly
+Ei: strings concat
+Ei: int value add
+
+there are some intresting ways i retirved my data from the values
+
+========================================================================================================================
+
+MY program usses classes as varibels so i can get the same syntax as regualar coding
+
+========================================================================================================================
+

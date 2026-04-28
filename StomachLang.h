@@ -38,23 +38,23 @@ public:
 };
 
 // overloading the cout operator so i can use them like std::cout<<test2
-static std::ostream& operator<<(std::ostream& o, Calorie var)
-{
-    o<<var.getValue();
-    return o;
-}
-
-static std::ostream& operator<<(std::ostream& o, Foods var)
-{
-    o<<var.getValue();
-    return o;
-}
-
-static std::ostream& operator<<(std::ostream& o, Edible var)
-{
-    o << (var.getValue() == "1" ? "1" : "0");
-    return o;
-}
+// static std::ostream& operator<<(std::ostream& o, Calorie var)
+// {
+//     o<<var.getValue();
+//     return o;
+// }
+//
+// static std::ostream& operator<<(std::ostream& o, Foods var)
+// {
+//     o<<var.getValue();
+//     return o;
+// }
+//
+// static std::ostream& operator<<(std::ostream& o, Edible var)
+// {
+//     o << (var.getValue() == "1" ? "1" : "0");
+//     return o;
+// }
 
 
 

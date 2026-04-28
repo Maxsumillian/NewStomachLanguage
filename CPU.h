@@ -25,11 +25,17 @@ public:
     void store(int address);// takes accumulator value and stores it at location
 
     std::string getAccumulator();
-
+//===================================================================
     void add(std::string value);// single input adds variable type and puts into accumulator doubles as a set accumulator function
-    void add(std::string value, std::string value2);
+    // void add(std::string value, std::string value2);// so instead of strings here i use addresses then load from memory and then I do the caculations
 
-    void sub(std::string value, std::string value2);
+    // void sub(std::string value, std::string value2);
+//===================================================================
+    void add(int address);
+    void add(int address, int address2);
+
+    void sub(int address, int address2);
+
 
     // void add(Variable var1, Variable var2);// double input takes two and tries to add them together
     //

@@ -44,30 +44,54 @@ std::string CPU::decodeDataValue(std::string value) {
 void CPU::add(std::string value) {// single add so this acts as a set accumulator
     accumulator = value;
 }
+//
+// void CPU::add(std::string value, std::string value2) {
+//     if (decodeDataType(value) == decodeDataType(value2)) {
+//         if (decodeDataType(value) == "Int") {
+//             accumulator = decodeDataType(value) +":"+ std::to_string(std::stoi(decodeDataValue(value)) + std::stoi(decodeDataValue(value2)));
+//             // this is funny first converts string data to get only the value then converts that value to integer then
+//             // adds then proceeds to turn back into string to be set into the accumulator
+//         }
+//         else {
+//             accumulator = decodeDataType(value) +":"+ decodeDataValue(value) + decodeDataValue(value2);
+//         }
+//
+//     }
+//     else {
+//         std::cout << "\n\033[31m" << "Error: Cannot add "<< decodeDataType(value) << " & " << decodeDataType(value2) << "\033[0m" ;
+//     }
+// }
 
-void CPU::add(std::string value, std::string value2) {
-    if (decodeDataType(value) == decodeDataType(value2)) {
-        if (decodeDataType(value) == "Int") {
-            accumulator = decodeDataType(value) +":"+ std::to_string(std::stoi(decodeDataValue(value)) + std::stoi(decodeDataValue(value2)));
+//===================================================================
+void CPU::add(int address) {
+    accumulator = memory->read(address);
+
+}
+void CPU::add(int address, int address2) {
+    if (decodeDataType(memory->read(address)) == decodeDataType(memory->read(address2))) {
+        if (decodeDataType(memory->read(address)) == "Int") {
+            accumulator = decodeDataType(memory->read(address)) +":"+ std::to_string(std::stoi(decodeDataValue(memory->read(address))) + std::stoi(decodeDataValue(memory->read(address2))));
             // this is funny first converts string data to get only the value then converts that value to integer then
             // adds then proceeds to turn back into string to be set into the accumulator
         }
         else {
-            accumulator = decodeDataType(value) +":"+ decodeDataValue(value) + decodeDataValue(value2);
+            accumulator = decodeDataType(memory->read(address)) +":"+ decodeDataValue(memory->read(address)) + decodeDataValue(memory->read(address2));
         }
 
     }
     else {
-        std::cout << "\n\033[31m" << "Error: Cannot add "<< decodeDataType(value) << " & " << decodeDataType(value2) << "\033[0m" ;
+        std::cout << "\n\033[31m" << "Error: Cannot add "<< decodeDataType(memory->read(address)) << " & " << decodeDataType(memory->read(address2)) << "\033[0m" ;
     }
 }
 
-void CPU::sub(std::string value, std::string value2) {
-    if (decodeDataType(value) == decodeDataType(value2) && decodeDataType(value) == "Int") {
-            accumulator = std::to_string(std::stoi(decodeDataValue(value)) - std::stoi(decodeDataValue(value2)));
+//===================================================================
+
+void CPU::sub(int address, int address2) {
+    if (decodeDataType(memory->read(address)) == decodeDataType(memory->read(address2)) && decodeDataType(memory->read(address)) == "Int") {
+            accumulator = std::to_string(std::stoi(decodeDataValue(memory->read(address))) - std::stoi(decodeDataValue(memory->read(address2))));
     }
     else {
-        std::cout << "\n\033[31m" << "Error: Cannot subtract "<< decodeDataType(value) << " & " << decodeDataType(value2) << "\033[0m" ;
+        std::cout << "\n\033[31m" << "Error: Cannot subtract "<< decodeDataType(memory->read(address)) << " & " << decodeDataType(memory->read(address2)) << "\033[0m" ;
     }
 }
 
