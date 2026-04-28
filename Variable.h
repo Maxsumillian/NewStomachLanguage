@@ -18,6 +18,8 @@ protected:
 public:
     Variable();
 
+    Variable(std::string dataType2, std::string dataValue2);// only used by cpu to create temp variables
+
     int getAddress();
     void printTest();
 
@@ -26,11 +28,11 @@ public:
 
     virtual void storeInMemory();
 
-    virtual void operator+(Variable var2);
+    virtual Variable operator+(Variable var2);// returns a Variable so i can chain them
 
     virtual void operator-(Variable var2);
 
-    virtual void operator=(Variable var2);
+    Variable& operator=(Variable var2);//
 
     // void operator=(int Calories);
     // void operator=(bool Edible);
