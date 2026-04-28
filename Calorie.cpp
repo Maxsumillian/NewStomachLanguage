@@ -18,6 +18,13 @@ Calorie::Calorie(int value) {// this calls after parent constructor but it does 
     storeInMemory();
 }
 
+
+Calorie::Calorie(Variable variable) {
+    dataType = "Int";
+    dataValue = variable.getValue();
+    storeInMemory();
+}
+
 void Calorie::operator=(int Calories) {
     dataValue = std::to_string(Calories);
     storeInMemory();

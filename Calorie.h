@@ -11,6 +11,7 @@ class Calorie : public Variable {// The Integer of my langauge type child of Var
 public:
     Calorie();
     Calorie(int value);
+    Calorie(Variable variable);
 
     void operator=(int Calories);
 

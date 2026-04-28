@@ -100,7 +100,14 @@ int main() {
     test6 = test6 + test6;// nice i got strings working!
     StomachLang::cpu.DEVELOPER_Print();
 
+    Calorie applePie = 100;
+    Calorie milkShake = 50;
+    Calorie peachPie = applePie + milkShake;// currently doesnt work...
+    //EDIT: works now! need to create a construcor to take in Variables
 
+    int one = 1;
+    int two = 2;
+    int myint = one + two;
 
     // test8 - test2;
     // StomachLang::cpu.DEVELOPER_Print();

@@ -22,3 +22,7 @@ String = Foods
         Calories milkShake;
         milkShake = 300;
         Calories Cake(800);
+
+
+    Added: syntax for
+        Calories peachPie = applePie + milkShake;
