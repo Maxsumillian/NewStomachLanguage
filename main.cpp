@@ -15,6 +15,7 @@ int main() {
     Edible test5 = false;// requires constructor
     Foods test6 = "test String";
     Calorie test7 = 321;
+    Calorie test8(213);
 
 
 
@@ -66,6 +67,33 @@ int main() {
     StomachLang::cpu.load(7);
     StomachLang::cpu.DEVELOPER_Print();
 
+    std::cout << std::endl << "Test Addition:";
+    test2 + test2;
+    StomachLang::cpu.DEVELOPER_Print();
+
+    test + test2;
+    StomachLang::cpu.DEVELOPER_Print();
+
+    test3 + test6;
+    StomachLang::cpu.DEVELOPER_Print();
+
+
+    test3 - test6;
+    StomachLang::cpu.DEVELOPER_Print();
+
+    // test8 = test8 - test2;
+    test8 - test2;
+    StomachLang::cpu.DEVELOPER_Print();
+
+    StomachLang::poop(test2 - test8);// simple display for now
+
+    //I didnt know you can add bools in c++
+    // std::cout << true + false;//. funny implementation is to turn the value of bool into a int of either 0 or 1 for cases when adding to ints
+    // std::cout << false + false;
+    // std::cout << true + true + 100;
+    // std::cout << true + 100;
+
+
 
     // StomachLang::memoryToType(test2);
     // StomachLang::memoryToType(test3);
@@ -73,9 +101,9 @@ int main() {
     //
     // StomachLang::poop(test2);
 
-    std::cout<<test2;
-    std::cout<<test3;
-    std::cout<<test4;
+    // std::cout<<test2;// uses the overloaded funcitons in my langauge class for output
+    // std::cout<<test3;// will potentially not need in the future
+    // std::cout<<test4;
 
     return 0;
 }
