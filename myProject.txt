@@ -85,7 +85,7 @@ Now on the issue of creating a variable like this... Variable [var] = [var1] + [
 this actually calls a Constructor and it looks for one. specifically its looking for
 
 Variable(FatherVariable var); because the temp variable is kept as a FatherVariable that can later be turned into the correct child
-adding this constructor and assigning the values im able to actaully have this type of syntax
+adding this constructor and assigning the values i'm able to actaully have this type of syntax
 
 Variable [var] = [var1] + [var2] + [var3];
 
