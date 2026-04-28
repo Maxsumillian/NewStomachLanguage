@@ -14,7 +14,7 @@ void StomachLang::poop(Variable var) {
     std::cout << var.getValue();
 }
 
-void StomachLang::memoryToType(Variable var) {
+void StomachLang::memoryToType(Variable var) {//NOTE: may be redundednt and CPU shoudl handle this i think
     // var.getType()
     //"Bool"    "String"    "Int"
     if (var.getType() == "Int") {
