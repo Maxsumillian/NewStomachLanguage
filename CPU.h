@@ -14,6 +14,9 @@ private:
     Memory* memory;  // pointer to memory so it knows where to reference from
     std::string accumulator;
 
+    std::string decodeDataValue(std::string value);//I only want the cpu to be able to run this so its private
+    std::string decodeDataType(std::string value);
+
 public:
     CPU(Memory* mem);// uses a pointer/refrence for memory
 
@@ -21,8 +24,11 @@ public:
 
     void store(int address);// takes accumulator value and stores it at location
 
-    void add(std::string value);
-    // void add(Variable var1);// single input adds variable type and puts into accumulator
+    void add(std::string value);// single input adds variable type and puts into accumulator doubles as a set accumulator function
+    void add(std::string value, std::string value2);
+
+    void sub(std::string value, std::string value2);
+
     // void add(Variable var1, Variable var2);// double input takes two and tries to add them together
     //
     // void createVariable(Variable var);

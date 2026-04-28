@@ -25,17 +25,42 @@ void CPU::add(std::string value) {
     accumulator = value;
 }
 
-// void CPU::add(Variable var) {
-//     accumulator = var.getType() + ":" + var.getValue();
-// }
-// void CPU::add(Variable var1, Variable var2) {
-//
-// }
-//
-// void CPU::createVariable(Variable var) {
-//     add(var);
-//     store(var.getAddress());
-// }
+std::string CPU::decodeDataType(std::string value) {
+    int pos = value.find(':');
+    return value.substr(0, pos);
+}
+
+std::string CPU::decodeDataValue(std::string value) {
+    int pos = value.find(':');
+    return value.substr( pos + 1);
+}
+
+void CPU::add(std::string value, std::string value2) {
+    if (decodeDataType(value) == decodeDataType(value2)) {
+        if (decodeDataType(value) == "Int") {
+            accumulator = std::to_string(std::stoi(decodeDataValue(value)) + std::stoi(decodeDataValue(value2)));
+            // this is funny first converts string data to get only the value then converts that value to integer then
+            // adds then proceeds to turn back into string to be set into the accumulator
+        }
+        else {
+            accumulator = decodeDataValue(value) + decodeDataValue(value2);
+        }
+
+    }
+    else {
+        std::cout << "\n\033[31m" << "Error: Cannot add "<< decodeDataType(value) << " & " << decodeDataType(value2) << "\033[0m" ;
+    }
+}
+
+void CPU::sub(std::string value, std::string value2) {
+    if (decodeDataType(value) == decodeDataType(value2) && decodeDataType(value) == "Int") {
+            accumulator = std::to_string(std::stoi(decodeDataValue(value)) - std::stoi(decodeDataValue(value2)));
+    }
+    else {
+        std::cout << "\n\033[31m" << "Error: Cannot subtract "<< decodeDataType(value) << " & " << decodeDataType(value2) << "\033[0m" ;
+    }
+}
+
 
 void CPU::DEVELOPER_Print() {
     std::cout << std::endl << accumulator ;
