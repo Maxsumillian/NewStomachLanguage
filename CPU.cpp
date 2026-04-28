@@ -12,6 +12,15 @@
 
 CPU::CPU(Memory* mem) : memory(mem), accumulator("") {}
 
+
+std::string CPU::getAccumulator() {
+    return accumulator;
+}
+
+Variable CPU::createVariable() {
+    return Variable(decodeDataType(accumulator), decodeDataValue(accumulator));
+}
+
 void CPU::load(int address) {
     accumulator = memory->read(address);
 }
@@ -21,9 +30,6 @@ void CPU::store(int address) {
 }
 
 
-void CPU::add(std::string value) {
-    accumulator = value;
-}
 
 std::string CPU::decodeDataType(std::string value) {
     int pos = value.find(':');
@@ -35,15 +41,19 @@ std::string CPU::decodeDataValue(std::string value) {
     return value.substr( pos + 1);
 }
 
+void CPU::add(std::string value) {// single add so this acts as a set accumulator
+    accumulator = value;
+}
+
 void CPU::add(std::string value, std::string value2) {
     if (decodeDataType(value) == decodeDataType(value2)) {
         if (decodeDataType(value) == "Int") {
-            accumulator = std::to_string(std::stoi(decodeDataValue(value)) + std::stoi(decodeDataValue(value2)));
+            accumulator = decodeDataType(value) +":"+ std::to_string(std::stoi(decodeDataValue(value)) + std::stoi(decodeDataValue(value2)));
             // this is funny first converts string data to get only the value then converts that value to integer then
             // adds then proceeds to turn back into string to be set into the accumulator
         }
         else {
-            accumulator = decodeDataValue(value) + decodeDataValue(value2);
+            accumulator = decodeDataType(value) +":"+ decodeDataValue(value) + decodeDataValue(value2);
         }
 
     }
