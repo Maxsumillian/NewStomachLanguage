@@ -54,8 +54,10 @@ Variable Variable::operator+(Variable var2) {// adjust this instead of grabbing 
     //NOtes "getType" is not needed when i transistion to cpu and virtual memory beacause i will use my decoder in my memory
     StomachLang::cpu.add(address, var2.getAddress());
     //StomachLang::cpu.add(dataType +":"+dataValue, var2.getType() + ":" + var2.getValue());// this adds into register but how do i take that and use it here?
+    return Variable(StomachLang::cpu.getAccumulatorDataType(), StomachLang::cpu.getAccumulatorDataValue());
+    //NOTE: if i make a struct to hold the data instead of just one string i can pas teh data as one entity instead of parts and then extract that way
 
-    return StomachLang::cpu.createVariable();
+    //return StomachLang::cpu.createVariable();// this is when I use createVarible beacause I need this opeartor+ overload to return a varible to be used for chainging;
     // std::cout << dataType +":"+dataValue + var2.getType() + ":" + var2.getValue();
 }
 

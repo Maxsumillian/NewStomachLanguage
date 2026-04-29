@@ -13,13 +13,24 @@
 CPU::CPU(Memory* mem) : memory(mem), accumulator("") {}
 
 
-std::string CPU::getAccumulator() {
-    return accumulator;
+// std::string CPU::getAccumulator() {
+//     return accumulator;
+// }
+
+
+std::string CPU::getAccumulatorDataType() {
+    return decodeDataType(accumulator);
+}
+std::string CPU::getAccumulatorDataValue() {
+    return decodeDataValue(accumulator);
 }
 
-Variable CPU::createVariable() {
-    return Variable(decodeDataType(accumulator), decodeDataValue(accumulator));
-}
+
+
+// Variable CPU::createVariable() {// no need to make Variable in CPU i can make it in my overlaoded function but instead i need a way to pass the data to my varibel class
+// here i use getAccumulatorDataTyep/DataValue
+//     return Variable(decodeDataType(accumulator), decodeDataValue(accumulator));
+// }
 
 void CPU::load(int address) {
     accumulator = memory->read(address);

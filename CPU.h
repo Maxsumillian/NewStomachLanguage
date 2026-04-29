@@ -24,7 +24,9 @@ public:
 
     void store(int address);// takes accumulator value and stores it at location
 
-    std::string getAccumulator();
+    // std::string getAccumulator();
+    std::string getAccumulatorDataType();
+    std::string getAccumulatorDataValue();
 //===================================================================
     void add(std::string value);// single input adds variable type and puts into accumulator doubles as a set accumulator function
     // void add(std::string value, std::string value2);// so instead of strings here i use addresses then load from memory and then I do the caculations
