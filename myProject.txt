@@ -103,7 +103,7 @@ there are some intresting ways i retirved my data from the values
 
 ========================================================================================================================
 
-MY program usses classes as varibels so i can get the same syntax as regualar coding
+My program uses classes as variables so i can get the same syntax as regualar coding
 
 ========================================================================================================================
 
