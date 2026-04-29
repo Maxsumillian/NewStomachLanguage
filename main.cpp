@@ -90,6 +90,8 @@ int main() {
     // std::cout <<std::endl;
     // StomachLang::poop(test2); // returns 246
     //
+    Calorie test9 = test2 + test2;// Yay i got it working!
+    StomachLang::cpu.DEVELOPER_Print();
 
     ///////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
