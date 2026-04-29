@@ -70,14 +70,14 @@ void CPU::add(int address) {
 void CPU::add(int address, int address2) {
     if (decodeDataType(memory->read(address)) == decodeDataType(memory->read(address2))) {
         if (decodeDataType(memory->read(address)) == "Int") {
+            // load(address);// NOTE: Im setting the accumulator but im not using the load function to actually load the function and
+            // also i should be doing somthing like accumulator += newaddress,
+            // However beacuse of how i am storing hte information i woudl need to seperate the values and recombine into parts, if i were using a struct that would make it simpler and bea ble to onl yadd to the second part
             accumulator = decodeDataType(memory->read(address)) +":"+ std::to_string(std::stoi(decodeDataValue(memory->read(address))) + std::stoi(decodeDataValue(memory->read(address2))));
-            // this is funny first converts string data to get only the value then converts that value to integer then
-            // adds then proceeds to turn back into string to be set into the accumulator
         }
         else {
             accumulator = decodeDataType(memory->read(address)) +":"+ decodeDataValue(memory->read(address)) + decodeDataValue(memory->read(address2));
         }
-
     }
     else {
         std::cout << "\n\033[31m" << "Error: Cannot add "<< decodeDataType(memory->read(address)) << " & " << decodeDataType(memory->read(address2)) << "\033[0m" ;
