@@ -6,14 +6,18 @@
 #define NEWSTOMACHLANGAUGE_VARIABLE_H
 
 #include <string>
+#include "Data.h"
 
 class Variable{// Father of all Variable Types in my Coding langauge
+
+    friend Variable operator+( int b,Variable& a);
+
 protected:
     // std::string name;
     // std::string dataType = "dataType";// actually i need to move this to the memory and only keep the address in my variable Class and refrence my cpu to load and display the values i want will require more testing
     // std::string dataValue = "dataValue";
     int address;// right now address is garbage I need to have a counter that increments the size as my variable numbers grow
-    inline static int maxAddress = 0;
+    inline static int maxAddress = 0;//NOTE i need to updatge this for devC++
 
 public:
     Variable();
@@ -26,14 +30,18 @@ public:
     std::string getType();
     std::string getValue();
 
-    virtual void storeInMemory(std::string, std::string);
+    virtual void storeInMemory(Data d);
     virtual void storeInMemory(int address,int address2);
 
     virtual Variable operator+(Variable var2);// returns a Variable so i can chain them
+    Variable operator+(int i);
+
+
+    Variable operator+(const char* value);
 
     virtual void operator-(Variable var2);
 
-    Variable& operator=(Variable var2);//
+    // Variable& operator=(Variable var2);//
 
     // void operator=(int Calories);
     // void operator=(bool Edible);
