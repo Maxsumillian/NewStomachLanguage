@@ -7,19 +7,20 @@
 
 #include <vector>
 #include <string>
+#include "Data.h"
 //use Vector first then upgrade to map
 
 
 class Memory {
 private:
-    std::vector<std::string> memory;
+    std::vector<Data> memory;
 
 public:
     Memory(int size);
 
-    std::string read(int address);
+    Data read(int address);
 
-    void write(int address, std::string value);
+    void write(int address, Data value);
 };
 
 
