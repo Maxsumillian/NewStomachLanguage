@@ -16,7 +16,7 @@ String = Foods
         Foods apple = "apple";
         Foods pie;
         pie = "pie";
-        honey("honey");
+        Foods honey("honey");
 
         Calores applePie = 580;
         Calories milkShake;
@@ -26,3 +26,7 @@ String = Foods
 
     Added: syntax for
         Calories peachPie = applePie + milkShake;
+
+    Added: syntax for
+        Calories PeachPie = applePit + 123 + milkShake + 321;
+        Foods pumkinPie = "eating pie" + " its good " + pie;
