@@ -63,15 +63,14 @@ void CPU::add(int address) {
     accumulator = memory->read(address);
 }
 
-
+// repeating code can use template for most of it
 void CPU::add(int address, int address2) {
 
     Data a = memory->read(address);
     Data b = memory->read(address2);
 
     if (a.type != b.type) {
-        std::cout << "\n\033[31mError: Cannot add "
-                  << a.type << " & " << b.type << "\033[0m";
+        std::cout << "\n\033[31mError: Cannot add " << a.type << " & " << b.type << "\033[0m";
         return;
     }
 
@@ -81,23 +80,118 @@ void CPU::add(int address, int address2) {
     else {
         accumulator.value = a.value + b.value;
     }
+}// SPECIAL CASE FOR STRINGS BEACUSE OF CONCATING
+//
+// //===================================================================
+//
+// // can use templates instead of this alot of copy and paste
+// void CPU::sub(int address, int address2) {
+//
+//     Data a = memory->read(address);
+//     Data b = memory->read(address2);
+//
+//     if (a.type == "INT" && b.type == "INT") {
+//         accumulator.value = std::to_string(std::stoi(a.value) - std::stoi(b.value));
+//     }
+//     else {
+//         std::cout << "\n\033[31mError: Cannot subtract " << a.type << " & " << b.type << "\033[0m";
+//     }
+// }
+//
+// void CPU::multiply(int address, int address2) {
+//
+//     Data a = memory->read(address);
+//     Data b = memory->read(address2);
+//
+//     if (a.type == "INT" && b.type == "INT") {
+//         accumulator.value = std::to_string(std::stoi(a.value) * std::stoi(b.value));
+//     }
+//     else {
+//         std::cout << "\n\033[31mError: Cannot Multiply " << a.type << " & " << b.type << "\033[0m";
+//     }
+// }
+//
+// void CPU::divide(int address, int address2) {
+//
+//     Data a = memory->read(address);
+//     Data b = memory->read(address2);
+//
+//     if (a.type == "INT" && b.type == "INT") {
+//         accumulator.value = std::to_string(std::stoi(a.value) / std::stoi(b.value));
+//     }
+//     else {
+//         std::cout << "\n\033[31mError: Cannot Multiply " << a.type << " & " << b.type << "\033[0m";
+//     }
+// }
+//
+// void CPU::modulo(int address, int address2) {
+//
+//     Data a = memory->read(address);
+//     Data b = memory->read(address2);
+//
+//     if (a.type == "INT" && b.type == "INT") {
+//         accumulator.value = std::to_string(std::stoi(a.value) % std::stoi(b.value));
+//     }
+//     else {
+//         std::cout << "\n\033[31mError: Cannot Multiply " << a.type << " & " << b.type << "\033[0m";
+//     }
+// }
+
+
+
+
+// much smaller funcitons after using a template
+// void CPU::add(int a, int b) {
+//     operation(a, b, [](auto x, auto y) {
+//         return x + y;
+//     });
+// }
+
+void CPU::sub(int a, int b) {
+    operation(a, b, [](int x, int y) {
+        return x - y;
+    });
 }
 
-//===================================================================
+void CPU::multiply(int a, int b) {
+    operation(a, b, [](int x, int y) {
+        return x * y;
+    });
+}
 
-void CPU::sub(int address, int address2) {
+void CPU::divide(int a, int b) {
+    operation(a, b, [](int x, int y) {
+        return x / y;
+    });
+}
+
+void CPU::modulo(int a, int b) {
+    operation(a, b, [](int x, int y) {
+        return x % y;
+    });
+}
+
+template<typename Op>
+void CPU::operation(int address, int address2, Op op) {// chatgpt helped with the templating
 
     Data a = memory->read(address);
     Data b = memory->read(address2);
 
-    if (a.type == "INT" && b.type == "INT") {
-        accumulator.value = std::to_string(std::stoi(a.value) - std::stoi(b.value));
+    if (a.type != "INT" || b.type != "INT") {
+        std::cout << "\n\033[31mType error\033[0m";
+        return;
     }
-    else {
-        std::cout << "\n\033[31mError: Cannot subtract "
-                  << a.type << " & " << b.type << "\033[0m";
-    }
+
+    int x = std::stoi(a.value);
+    int y = std::stoi(b.value);
+
+    int result = op(x, y);   // <-- ONLY ints here
+
+    accumulator.type = "INT";
+    accumulator.value = std::to_string(result);
 }
+
+
 
 
 void CPU::DEVELOPER_Print() {

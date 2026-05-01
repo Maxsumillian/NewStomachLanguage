@@ -109,3 +109,6 @@ My program uses classes as variables so i can get the same syntax as regualar co
 ========================================================================================================================
 
 Because Construcors are called parent first then Child I am required to use a virtual function to call and change some value in my datatype when using inheretance in my constructor class.
+
+
+========================================================================================================================

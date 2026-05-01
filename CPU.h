@@ -39,6 +39,12 @@ public:
     void add(int address, int address2);
 
     void sub(int address, int address2);
+    void multiply(int address, int address2);
+    void divide(int address, int address2);
+    void modulo(int address, int address2);
+
+    template<typename T>
+    void operation(int address, int address2, T op);
 
 
     // void add(Variable var1, Variable var2);// double input takes two and tries to add them together

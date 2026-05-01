@@ -54,6 +54,7 @@ int Variable::getAddress() {
 Variable Variable::operator+(Variable var2) {// adjust this instead of grabbing its inhearent values i need to grab from my virtual memory using the addresses from variables
     //NOtes "getType" is not needed when i transistion to cpu and virtual memory beacause i will use my decoder in my memory
     StomachLang::cpu.add(address, var2.getAddress());
+    // StomachLang::cpu.operation(address, var2.getAddress(), [](int x, int y){ return x + y; });
     //StomachLang::cpu.add(dataType +":"+dataValue, var2.getType() + ":" + var2.getValue());// this adds into register but how do i take that and use it here?
     return Variable(StomachLang::cpu.getAccumulatorDataType(), StomachLang::cpu.getAccumulatorDataValue());
     //NOTE: if i make a struct to hold the data instead of just one string i can pas teh data as one entity instead of parts and then extract that way
@@ -63,8 +64,9 @@ Variable Variable::operator+(Variable var2) {// adjust this instead of grabbing 
 }
 
 
-void Variable::operator-(Variable var2){
+Variable Variable::operator-(Variable var2){
     StomachLang::cpu.sub(address, var2.getAddress());
+    return Variable(StomachLang::cpu.getAccumulatorDataType(), StomachLang::cpu.getAccumulatorDataValue());
     // std::cout << dataType +":"+dataValue + var2.getType() + ":" + var2.getValue();
 }
 
@@ -75,6 +77,8 @@ void Variable::operator-(Variable var2){
 //     return *this;
 // }
 
+
+// beacuse using ints from c++ some limitation so i have to do it here unless i pass more informatino making more complex
 Variable Variable::operator+(int i) {
     StomachLang::cpu.add(address);
     if (StomachLang::cpu.getAccumulatorDataType() == "INT")
@@ -84,7 +88,45 @@ Variable Variable::operator+(int i) {
     return *this;
 }
 
-//weird i have to use this char* instead of string but i guess
+Variable Variable::operator-(int i) {
+    StomachLang::cpu.add(address);
+    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
+        return Variable(StomachLang::cpu.getAccumulatorDataType(), std::to_string(std::stoi(StomachLang::cpu.getAccumulatorDataValue()) - i));
+
+    std::cout<<"\n\033[31mCannot add "<<StomachLang::cpu.getAccumulatorDataType() <<" and INT\033[0m";
+    return *this;
+}
+
+Variable Variable::operator*(int i) {
+    StomachLang::cpu.add(address);
+    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
+        return Variable(StomachLang::cpu.getAccumulatorDataType(), std::to_string(std::stoi(StomachLang::cpu.getAccumulatorDataValue()) * i));
+
+    std::cout<<"\n\033[31mCannot add "<<StomachLang::cpu.getAccumulatorDataType() <<" and INT\033[0m";
+    return *this;
+}
+
+Variable Variable::operator/(int i) {
+    StomachLang::cpu.add(address);
+    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
+        return Variable(StomachLang::cpu.getAccumulatorDataType(), std::to_string(std::stoi(StomachLang::cpu.getAccumulatorDataValue()) / i));
+
+    std::cout<<"\n\033[31mCannot add "<<StomachLang::cpu.getAccumulatorDataType() <<" and INT\033[0m";
+    return *this;
+}
+
+Variable Variable::operator%(int i) {
+    StomachLang::cpu.add(address);
+    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
+        return Variable(StomachLang::cpu.getAccumulatorDataType(), std::to_string(std::stoi(StomachLang::cpu.getAccumulatorDataValue()) % i));
+
+    std::cout<<"\n\033[31mCannot add "<<StomachLang::cpu.getAccumulatorDataType() <<" and INT\033[0m";
+    return *this;
+}
+
+
+
+//weird i have to use this char* instead of string but i guess // limitations with concatting
 Variable Variable::operator+(const char* value) {
     StomachLang::cpu.add(address);
     if (StomachLang::cpu.getAccumulatorDataType() == "String")
@@ -92,4 +134,44 @@ Variable Variable::operator+(const char* value) {
 
     std::cout<<"\n\033[31mCannot add "<<StomachLang::cpu.getAccumulatorDataType() <<" and String\033[0m";
     return *this;
+}
+
+Variable operator+( int b, const Variable& a) {
+    StomachLang::cpu.add(a.address);
+    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
+        return Variable(StomachLang::cpu.getAccumulatorDataType(), std::to_string(std::stoi(StomachLang::cpu.getAccumulatorDataValue()) + b));
+
+    std::cout<<"\n\033[31mCannot add "<<StomachLang::cpu.getAccumulatorDataType() <<" and INT\033[0m";
+}
+
+Variable operator-( int b, const Variable& a){
+    StomachLang::cpu.add(a.address);
+    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
+        return Variable(StomachLang::cpu.getAccumulatorDataType(), std::to_string(std::stoi(StomachLang::cpu.getAccumulatorDataValue()) - b));
+
+    std::cout<<"\n\033[31mCannot add "<<StomachLang::cpu.getAccumulatorDataType() <<" and INT\033[0m";
+}
+
+Variable operator*( int b, const Variable& a){
+    StomachLang::cpu.add(a.address);
+    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
+        return Variable(StomachLang::cpu.getAccumulatorDataType(), std::to_string(std::stoi(StomachLang::cpu.getAccumulatorDataValue()) * b));
+
+    std::cout<<"\n\033[31mCannot add "<<StomachLang::cpu.getAccumulatorDataType() <<" and INT\033[0m";
+}
+
+Variable operator/( int b, const Variable& a){
+    StomachLang::cpu.add(a.address);
+    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
+        return Variable(StomachLang::cpu.getAccumulatorDataType(), std::to_string(std::stoi(StomachLang::cpu.getAccumulatorDataValue()) / b));
+
+    std::cout<<"\n\033[31mCannot add "<<StomachLang::cpu.getAccumulatorDataType() <<" and INT\033[0m";
+}
+
+Variable operator%( int b, const Variable& a){
+    StomachLang::cpu.add(a.address);
+    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
+        return Variable(StomachLang::cpu.getAccumulatorDataType(), std::to_string(std::stoi(StomachLang::cpu.getAccumulatorDataValue()) % b));
+
+    std::cout<<"\n\033[31mCannot add "<<StomachLang::cpu.getAccumulatorDataType() <<" and INT\033[0m";
 }

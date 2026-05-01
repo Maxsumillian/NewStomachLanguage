@@ -12,11 +12,11 @@ int main() {
     test2 = 123;// nice this works
     test2 + test2;
     StomachLang::cpu.DEVELOPER_Print();
-    test2 = -123 + test2 + test2 + 123 + 234 + test2 + 432;
+    test2 = -123 + test2 - test2 % 123 / 234 * test2 + 432;
     StomachLang::cpu.DEVELOPER_Print();
 
     Foods foods = "Please work";
-    foods = foods + foods + 123;//ignores the integer
+    foods = foods + foods + 123;//ignores the integer and give error messege
     StomachLang::cpu.DEVELOPER_Print();
     foods = foods + " im testing this add";
     StomachLang::cpu.DEVELOPER_Print();
@@ -35,6 +35,7 @@ int main() {
     StomachLang::eat() >> test2;
 
     StomachLang::poop() << test2;
+
 
 
 

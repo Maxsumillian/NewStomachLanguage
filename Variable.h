@@ -10,7 +10,11 @@
 
 class Variable{// Father of all Variable Types in my Coding langauge
 
-    friend Variable operator+( int b,Variable& a);
+    friend Variable operator+( int b,const Variable& a);
+    friend Variable operator-( int b,const Variable& a);
+    friend Variable operator*( int b,const Variable& a);
+    friend Variable operator/( int b,const Variable& a);
+    friend Variable operator%( int b,const Variable& a);
 
 protected:
     // std::string name;
@@ -35,11 +39,16 @@ public:
 
     virtual Variable operator+(Variable var2);// returns a Variable so i can chain them
     Variable operator+(int i);
+    Variable operator-(int i);
+    Variable operator/(int i);
+    Variable operator*(int i);
+    Variable operator%(int i);
+
 
 
     Variable operator+(const char* value);
 
-    virtual void operator-(Variable var2);
+    virtual Variable operator-(Variable var2);
 
     // Variable& operator=(Variable var2);//
 
