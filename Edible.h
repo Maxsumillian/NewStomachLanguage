@@ -8,6 +8,9 @@
 
 
 class Edible : public Variable{
+
+    friend std::ostream& operator<<(std::ostream& o, Edible& edible);
+
 public:
     Edible();
     Edible(bool value);

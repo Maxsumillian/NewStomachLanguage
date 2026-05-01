@@ -8,6 +8,12 @@
 
 
 class Calorie : public Variable {// The Integer of my langauge type child of Variable
+
+    friend Variable operator+( int b,Calorie& a);
+    friend std::ostream& operator<<(std::ostream& o, Calorie& calorie);
+
+    friend std::istream& operator>>(std::istream& in, Calorie& calorie);
+
 public:
     Calorie();
     Calorie(int value);
@@ -16,6 +22,11 @@ public:
     void operator=(int Calories);
 
     Calorie& operator=(Variable var2);//
+
+
+
+    Variable operator+(Calorie c);
+    Variable operator+(int b);
 
 };
 

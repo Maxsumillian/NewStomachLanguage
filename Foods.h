@@ -9,10 +9,15 @@
 
 
 class Foods : public Variable{
+
+    friend std::ostream& operator<<(std::ostream& lhs, Foods& pie);
+    friend std::istream& operator>>(std::istream& in, Foods& pie);
+
     public:
         Foods();
         // Foods(std::string text);//kina dumb this doesn't work :(
         Foods(const char* value);
+        Foods(Variable variable);
 
         // void operator=(std::string foods); doesnt work anymore beacuse of the char
         Foods& operator=(const std::string& value);
