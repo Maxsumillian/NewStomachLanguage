@@ -17,4 +17,5 @@ add_executable(NewStomachLangauge main.cpp
         Foods.h
         Foods.cpp
         Edible.h
-        Edible.cpp)
+        Edible.cpp
+        Data.h)
