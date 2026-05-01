@@ -33,7 +33,11 @@ public:
     //also note: will proably have to make a new class for ostream maybe instead of this?
 
     // void eat(Calorie prompt);
+    static std::ostream& poop();// can be used to start chain kinda like std::cout
+    static std::ostream& poop(std::string& value); // strings accepted
+    static std::ostream& poop(Variable &value);
 
+    static std::istream& eat();
 
 };
 

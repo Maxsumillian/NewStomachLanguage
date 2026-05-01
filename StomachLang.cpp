@@ -14,19 +14,63 @@ void StomachLang::poop(Variable var) {
     // std::cout << var.getValue();
 }
 
-// void StomachLang::memoryToType(Variable var) {//NOTE: may be redundednt and CPU shoudl handle this i think
-//     // var.getType()
-//     //"Bool"    "String"    "Int"
-//     if (var.getType() == "Int") {
-//         std::cout << "\n" << std::stoi(var.getValue());
-//     }
-//     else if (var.getType() == "Bool") {
-//         std::cout << "\n" << (var.getValue() == "1" ? "true" : "false");// ternary operator
-//     }
-//     else if (var.getType() == "String") {
-//         std::cout << "\n" << var.getValue();
-//     }
-//     else {
-//         std::cout << "\n[UNKNOWN TYPE]";
-//     }
-// }
+std::ostream& StomachLang::poop() {
+    return std::cout;
+}
+
+std::ostream& StomachLang::poop(std::string& value) {
+    return std::cout << value;
+}
+
+std::ostream& StomachLang::poop(Variable &value) {
+    cpu.add(value.getAddress());
+    return std::cout << cpu.getAccumulatorDataValue();
+}
+
+
+std::istream& StomachLang::eat() {
+    return std::cin;
+}
+
+// freinds for operator overloads out of scope
+std::ostream& operator<<(std::ostream& o, Foods& food) {
+    StomachLang::cpu.add(food.getAddress());
+    o << StomachLang::cpu.getAccumulatorDataValue();
+    return o;
+}
+
+std::ostream& operator<<(std::ostream& o, Calorie& calorie) {
+    StomachLang::cpu.add(calorie.getAddress());
+    o << StomachLang::cpu.getAccumulatorDataValue();
+    return o;
+}
+
+std::ostream& operator<<(std::ostream& o, Edible& edible) {
+    StomachLang::cpu.add(edible.getAddress());
+    o << StomachLang::cpu.getAccumulatorDataValue();
+    return o;
+}
+
+std::istream& operator>>(std::istream& in, Foods& food) {
+    std::string value;
+    in >> value;
+    StomachLang::cpu.add(Data{"String",value});
+    StomachLang::cpu.store(food.getAddress());
+    return in;
+}
+
+std::istream& operator>>(std::istream& in, Calorie& calorie) {
+    int value;
+    in >> value;
+    StomachLang::cpu.add(Data{"Int",std::to_string(value)});
+    StomachLang::cpu.store(calorie.getAddress());
+    return in;
+}
+
+std::istream& operator>>(std::istream& in, Edible& edible) {
+    bool value;
+    in >> value;
+    StomachLang::cpu.add(Data{"Bool",(value ? "true" : "false")});
+    StomachLang::cpu.store(edible.getAddress());
+    return in;
+}
