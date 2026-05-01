@@ -74,6 +74,7 @@ features:
 MY CPU is able to create temp varibles to handle situations like  Variable [var] = [var1] + [var2] + [var3];
 this means that i need to overload the operator+ and have it return a Variable... however i dont want it to change the
 data of the var getting added to
+EDIT: Removed beacuse was causeing errors now it just makes space in memory no garbage collection yet :P
 
 Ex: var1 + var2  one way to chain it is to return var1 = var1 + var2.
 however now var1 = var1 + var2 and not var1 anymore.
@@ -107,3 +108,4 @@ My program uses classes as variables so i can get the same syntax as regualar co
 
 ========================================================================================================================
 
+Because Construcors are called parent first then Child I am required to use a virtual function to call and change some value in my datatype when using inheretance in my constructor class.
