@@ -8,14 +8,16 @@
 #include "Memory.h"
 #include <string>
 #include "Variable.h"
+#include "Data.h"
 
 class CPU {
 private:
     Memory* memory;  // pointer to memory so it knows where to reference from
-    std::string accumulator;
+    // std::string accumulator;
+    Data accumulator;
 
-    std::string decodeDataValue(std::string value);//I only want the cpu to be able to run this so its private
-    std::string decodeDataType(std::string value);
+    // std::string decodeDataValue(std::string value);//I only want the cpu to be able to run this so its private
+    // std::string decodeDataType(std::string value);
 
 public:
     CPU(Memory* mem);// uses a pointer/refrence for memory
@@ -28,7 +30,7 @@ public:
     std::string getAccumulatorDataType();
     std::string getAccumulatorDataValue();
 //===================================================================
-    void add(std::string value);// single input adds variable type and puts into accumulator doubles as a set accumulator function
+    void add(Data d);// single input adds variable type and puts into accumulator doubles as a set accumulator function
     // void add(std::string value, std::string value2);// so instead of strings here i use addresses then load from memory and then I do the caculations
 
     // void sub(std::string value, std::string value2);
@@ -44,7 +46,6 @@ public:
     Variable createVariable();
 
     void DEVELOPER_Print();
-
 };
 
 

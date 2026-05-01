@@ -9,8 +9,10 @@
 
 #include "StomachLang.h"
 
+#include "Data.h"
 
-CPU::CPU(Memory* mem) : memory(mem), accumulator("") {}
+
+CPU::CPU(Memory* mem) : memory(mem), accumulator() {}
 
 
 // std::string CPU::getAccumulator() {
@@ -19,10 +21,10 @@ CPU::CPU(Memory* mem) : memory(mem), accumulator("") {}
 
 
 std::string CPU::getAccumulatorDataType() {
-    return decodeDataType(accumulator);
+    return accumulator.type;
 }
 std::string CPU::getAccumulatorDataValue() {
-    return decodeDataValue(accumulator);
+    return accumulator.value;
 }
 
 
@@ -40,73 +42,64 @@ void CPU::store(int address) {
     memory->write(address, accumulator);
 }
 
-
-
-std::string CPU::decodeDataType(std::string value) {
-    int pos = value.find(':');
-    return value.substr(0, pos);
-}
-
-std::string CPU::decodeDataValue(std::string value) {
-    int pos = value.find(':');
-    return value.substr( pos + 1);
-}
-
-void CPU::add(std::string value) {// single add so this acts as a set accumulator
-    accumulator = value;
-}
-//
-// void CPU::add(std::string value, std::string value2) {
-//     if (decodeDataType(value) == decodeDataType(value2)) {
-//         if (decodeDataType(value) == "Int") {
-//             accumulator = decodeDataType(value) +":"+ std::to_string(std::stoi(decodeDataValue(value)) + std::stoi(decodeDataValue(value2)));
-//             // this is funny first converts string data to get only the value then converts that value to integer then
-//             // adds then proceeds to turn back into string to be set into the accumulator
-//         }
-//         else {
-//             accumulator = decodeDataType(value) +":"+ decodeDataValue(value) + decodeDataValue(value2);
-//         }
-//
-//     }
-//     else {
-//         std::cout << "\n\033[31m" << "Error: Cannot add "<< decodeDataType(value) << " & " << decodeDataType(value2) << "\033[0m" ;
-//     }
+//not needed now that im moving to struct
+// std::string CPU::decodeDataType(std::string value) {
+//     int pos = value.find(':');
+//     return value.substr(0, pos);
 // }
+//
+// std::string CPU::decodeDataValue(std::string value) {
+//     int pos = value.find(':');
+//     return value.substr( pos + 1);
+// }
+
+void CPU::add(Data d) {// single add so this acts as a set accumulator
+    accumulator.type = d.type;
+    accumulator.value = d.value;//doesnt follow the traditinal way of just adding to the acumulator
+}// may change this and have a decicated send to register
 
 //===================================================================
 void CPU::add(int address) {
     accumulator = memory->read(address);
-
 }
+
+
 void CPU::add(int address, int address2) {
-    if (decodeDataType(memory->read(address)) == decodeDataType(memory->read(address2))) {
-        if (decodeDataType(memory->read(address)) == "Int") {
-            // load(address);// NOTE: Im setting the accumulator but im not using the load function to actually load the function and
-            // also i should be doing somthing like accumulator += newaddress,
-            // However beacuse of how i am storing hte information i woudl need to seperate the values and recombine into parts, if i were using a struct that would make it simpler and bea ble to onl yadd to the second part
-            accumulator = decodeDataType(memory->read(address)) +":"+ std::to_string(std::stoi(decodeDataValue(memory->read(address))) + std::stoi(decodeDataValue(memory->read(address2))));
-        }
-        else {
-            accumulator = decodeDataType(memory->read(address)) +":"+ decodeDataValue(memory->read(address)) + decodeDataValue(memory->read(address2));
-        }
+
+    Data a = memory->read(address);
+    Data b = memory->read(address2);
+
+    if (a.type != b.type) {
+        std::cout << "\n\033[31mError: Cannot add "
+                  << a.type << " & " << b.type << "\033[0m";
+        return;
+    }
+
+    if (a.type == "INT") {
+        accumulator.value = std::to_string(std::stoi(a.value) + std::stoi(b.value));
     }
     else {
-        std::cout << "\n\033[31m" << "Error: Cannot add "<< decodeDataType(memory->read(address)) << " & " << decodeDataType(memory->read(address2)) << "\033[0m" ;
+        accumulator.value = a.value + b.value;
     }
 }
 
 //===================================================================
 
 void CPU::sub(int address, int address2) {
-    if (decodeDataType(memory->read(address)) == decodeDataType(memory->read(address2)) && decodeDataType(memory->read(address)) == "Int") {
-            accumulator = std::to_string(std::stoi(decodeDataValue(memory->read(address))) - std::stoi(decodeDataValue(memory->read(address2))));
+
+    Data a = memory->read(address);
+    Data b = memory->read(address2);
+
+    if (a.type == "INT" && b.type == "INT") {
+        accumulator.value = std::to_string(std::stoi(a.value) - std::stoi(b.value));
     }
     else {
-        std::cout << "\n\033[31m" << "Error: Cannot subtract "<< decodeDataType(memory->read(address)) << " & " << decodeDataType(memory->read(address2)) << "\033[0m" ;
+        std::cout << "\n\033[31mError: Cannot subtract "
+                  << a.type << " & " << b.type << "\033[0m";
     }
 }
 
 
 void CPU::DEVELOPER_Print() {
-    std::cout << std::endl << accumulator ;
+    std::cout << std::endl << accumulator.type << ":" << accumulator.value <<std::endl ;
 }
