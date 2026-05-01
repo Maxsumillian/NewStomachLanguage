@@ -6,11 +6,12 @@
 #include "Variable.h"
 
 #include "StomachLang.h"
+#include "Data.h"
 
 Variable::Variable() {
     maxAddress++;// increments to add to a new location for memory
     address = maxAddress;
-    storeInMemory("dataType", "dataValue");
+    storeInMemory(Data{"dataType", "dataValue"});
 }
 
 Variable::Variable(std::string dataType2, std::string dataValue2) {// only used by virtual cpu to store Temp data
@@ -18,12 +19,12 @@ Variable::Variable(std::string dataType2, std::string dataValue2) {// only used 
     // dataValue = dataValue2;
     maxAddress++;
     address = maxAddress;
-    StomachLang::cpu.add(dataType2 +":"+dataValue2);
+    StomachLang::cpu.add(Data{dataType2, dataValue2});
     StomachLang::cpu.store(address);//since this is a temp vairble i can instead create a bool in vairbel to check if is temp and flag it if i want to handle garbage
 }
 
-void Variable::storeInMemory(std::string dataType, std::string dataValue) {// made this virtual because when I create the variable the parent constructor runs first then the child runs but i need a way to make the child run the store function after the parent runs it
-    StomachLang::cpu.add(dataType +":"+dataValue);//sets data into cpu accumulator
+void Variable::storeInMemory(Data d) {// made this virtual because when I create the variable the parent constructor runs first then the child runs but i need a way to make the child run the store function after the parent runs it
+    StomachLang::cpu.add(d);//sets data into cpu accumulator
     StomachLang::cpu.store(address);
 }
 
@@ -73,3 +74,22 @@ void Variable::operator-(Variable var2){
 //     storeInMemory();
 //     return *this;
 // }
+
+Variable Variable::operator+(int i) {
+    StomachLang::cpu.add(address);
+    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
+        return Variable(StomachLang::cpu.getAccumulatorDataType(), std::to_string(std::stoi(StomachLang::cpu.getAccumulatorDataValue()) + i));
+
+    std::cout<<"\n\033[31mCannot add "<<StomachLang::cpu.getAccumulatorDataType() <<" and INT\033[0m";
+    return *this;
+}
+
+//weird i have to use this char* instead of string but i guess
+Variable Variable::operator+(const char* value) {
+    StomachLang::cpu.add(address);
+    if (StomachLang::cpu.getAccumulatorDataType() == "String")
+        return Variable(StomachLang::cpu.getAccumulatorDataType(), StomachLang::cpu.getAccumulatorDataValue() + value);
+
+    std::cout<<"\n\033[31mCannot add "<<StomachLang::cpu.getAccumulatorDataType() <<" and String\033[0m";
+    return *this;
+}
