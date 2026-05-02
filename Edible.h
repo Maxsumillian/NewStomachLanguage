@@ -19,6 +19,7 @@ class Edible : public Variable{
     friend bool operator&&(bool y, Edible x);
 
     friend std::ostream& operator<<(std::ostream& o, Edible& edible);
+    friend std::istream& operator>>(std::istream& o, Edible& edible);
 
 public:
     Edible();

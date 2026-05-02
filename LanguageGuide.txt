@@ -1,32 +1,134 @@
-﻿Langauge Guide
+﻿STOMACHLANG SYNTAX GUIDE
+========================
+
+OVERVIEW
+--------
+StomachLang is a C++-based system with custom types:
+
+- Edible   -> Boolean
+- Calories -> Integer
+- Foods    -> String
+
+All types behave like objects with operator overloading and CPU-style runtime behavior.
 
 
-Varibles
+1. VARIABLES
+------------
 
-Bool = Edible
-Integer = Calories
-String = Foods
+BOOLEAN (Edible)
+----------------
+Edible coffee;
+coffee = true;
 
-    Examples:
-        Edible coffee;
-        coffee = true;
-        Edible Plane = false;
-        Edible car(false);
-
-        Foods apple = "apple";
-        Foods pie;
-        pie = "pie";
-        Foods honey("honey");
-
-        Calores applePie = 580;
-        Calories milkShake;
-        milkShake = 300;
-        Calories Cake(800);
+Edible plane = false;
+Edible car(false);
 
 
-    Added: syntax for
-        Calories peachPie = applePie + milkShake;
+INTEGER (Calories)
+------------------
+Calories applePie = 580;
 
-    Added: syntax for
-        Calories PeachPie = applePit + 123 + milkShake + 321;
-        Foods pumkinPie = "eating pie" + " its good " + pie;
+Calories milkShake;
+milkShake = 300;
+
+Calories cake(800);
+
+
+STRING (Foods)
+--------------
+Foods apple = "apple";
+
+Foods pie;
+pie = "pie";
+
+Foods honey("honey");
+
+
+2. ARITHMETIC (Calories)
+------------------------
+Calories a = 100;
+Calories b = 50;
+
+a + b;
+a - b;
+a * b;
+a / b;
+a % b;
+
+Mixed:
+Calories peachPie = applePie + milkShake;
+Calories complex = applePie + 123 + milkShake + 321;
+
+
+3. STRINGS (Foods)
+------------------
+Foods combo = "eating pie" + " its good " + pie;
+
+Note: integers are ignored or error-controlled in string ops.
+
+
+4. BOOLEAN (Edible)
+-------------------
+Edible isTrue = true;
+Edible isFalse = false;
+
+if (isTrue == true) {}
+if (isFalse != true) {}
+
+
+5. COMPARISONS
+--------------
+
+Calories:
+a > b
+a >= b
+a < b
+a <= b
+a == b
+a != b
+
+Foods:
+a == b
+"string" == b
+
+
+6. I/O SYSTEM
+-------------
+
+OUTPUT:
+StomachLang::poop() << "Hello";
+StomachLang::poop() << variable;
+
+INPUT:
+StomachLang::eat() >> variable;
+
+Example:
+StomachLang::poop() << "Enter age:";
+StomachLang::eat() >> test2;
+
+
+7. CPU DEBUG SYSTEM
+-------------------
+StomachLang::cpu.DEVELOPER_Print();
+StomachLang::cpu.load(1);
+
+
+8. EXAMPLE
+----------
+Foods apple = "apple";
+Foods pie = "pie";
+
+Foods result = apple + pie + " dessert";
+
+Calories x = 10;
+Calories y = 20;
+Calories z = x + y * 2;
+
+Edible flag = true;
+
+if (flag == true) {
+    StomachLang::poop() << "Running";
+}
+
+
+END OF SPECIFICATION

@@ -48,10 +48,7 @@ Variable Calorie::operator+(int b) {
 }
 
 Variable Calorie::operator+(Calorie c) {
-    StomachLang::cpu.add(address);
-
-    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
-        StomachLang::cpu.add(address, c.getAddress());
+    StomachLang::cpu.add(address, c.getAddress());
 
     return Variable(
         StomachLang::cpu.getAccumulatorDataType(),

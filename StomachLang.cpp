@@ -14,10 +14,6 @@ CPU StomachLang::cpu(&StomachLang::memory);
 // Output helpers (poop)
 // =========================
 
-void StomachLang::poop(Variable var) {
-    // std::cout << var.getValue();
-}
-
 std::ostream& StomachLang::poop() {
     return std::cout;
 }
@@ -32,13 +28,7 @@ std::ostream& StomachLang::poop(Variable& value) {
 }
 
 
-// =========================
-// Input helper (eat)
-// =========================
 
-std::istream& StomachLang::eat() {
-    return std::cin;
-}
 
 
 // =========================
@@ -63,6 +53,13 @@ std::ostream& operator<<(std::ostream& o, Edible& edible) {
     return o;
 }
 
+// =========================
+// Input helper (eat)
+// =========================
+
+std::istream& StomachLang::eat() {
+    return std::cin;
+}
 
 // =========================
 // Input operators
@@ -82,7 +79,7 @@ std::istream& operator>>(std::istream& in, Calorie& calorie) {
     int value;
     in >> value;
 
-    StomachLang::cpu.add(Data{"Int", std::to_string(value)});
+    StomachLang::cpu.add(Data{"INT", std::to_string(value)});
     StomachLang::cpu.store(calorie.getAddress());
 
     return in;
@@ -132,6 +129,17 @@ bool operator||(Edible x, bool y) {
     StomachLang::cpu.add(x.getAddress());
     return (StomachLang::cpu.getAccumulatorDataValue() == "true") || y;
 }
+
+bool operator&&(bool y, Edible x) {
+    StomachLang::cpu.add(x.getAddress());
+    return (StomachLang::cpu.getAccumulatorDataValue() == "true") && y;
+}
+
+bool operator||(bool y, Edible x) {
+    StomachLang::cpu.add(x.getAddress());
+    return (StomachLang::cpu.getAccumulatorDataValue() == "true") || y;
+}
+
 
 
 // =========================
