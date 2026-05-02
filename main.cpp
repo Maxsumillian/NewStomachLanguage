@@ -42,12 +42,12 @@ int main() {
         else if (choice == 2)
         {
             result = a - b;
-            StomachLang::poop() << result;
+            StomachLang::poop() << a <<" - " << b <<" = " <<  result;
         }
         else if (choice == 3)
         {
             result = a * b;
-            StomachLang::poop() << result;
+            StomachLang::poop() << a <<" * " << b <<" = " <<  result;
         }
         else if (choice == 4)
         {
@@ -58,7 +58,7 @@ int main() {
             else
             {
                 result = a / b;
-                StomachLang::poop() << result;
+                StomachLang::poop() << a <<" / " << b <<" = " <<  result;
             }
         }
         else
