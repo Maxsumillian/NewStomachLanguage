@@ -8,8 +8,8 @@
 #include <vector>
 #include <string>
 #include "Data.h"
-//use Vector first then upgrade to map
 
+// use Vector first then upgrade to map
 
 class Memory {
 private:
@@ -19,9 +19,7 @@ public:
     Memory(int size);
 
     Data read(int address);
-
     void write(int address, Data value);
 };
-
 
 #endif //NEWSTOMACHLANGAUGE_MEMORY_H
