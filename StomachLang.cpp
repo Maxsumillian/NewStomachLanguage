@@ -221,7 +221,7 @@ bool operator!=(Calorie x, Calorie y) {
 
 // =========================
 // Foods comparisons
-// =========================
+// ========================
 
 bool operator==(Foods x, Foods y) {
     StomachLang::cpu.add(x.getAddress());
