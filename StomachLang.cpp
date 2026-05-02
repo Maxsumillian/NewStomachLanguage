@@ -187,10 +187,22 @@ bool operator<=(Calorie x, Calorie y) {
 }
 
 bool operator<(Calorie x, Calorie y) {
-    StomachLang::cpu.add(x.getAddress());
+     StomachLang::cpu.add(x.getAddress());
+
+    if (StomachLang::cpu.getAccumulatorDataType() != "INT") {
+        std::cout << "Type error in < comparison (x)\n";
+        return false;
+    }
+
     int xVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
 
     StomachLang::cpu.add(y.getAddress());
+
+    if (StomachLang::cpu.getAccumulatorDataType() != "INT") {
+        std::cout << "Type error in < comparison (y)\n";
+        return false;
+    }
+
     int yVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
 
     return xVal < yVal;

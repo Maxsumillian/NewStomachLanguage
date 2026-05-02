@@ -82,25 +82,25 @@ void CPU::add(int address, int address2) {
 void CPU::sub(int a, int b) {
     operation(a, b, [](int x, int y) {
         return x - y;
-    });
+    },"subtract");
 }
 
 void CPU::multiply(int a, int b) {
     operation(a, b, [](int x, int y) {
         return x * y;
-    });
+    },"multiply");
 }
 
 void CPU::divide(int a, int b) {
     operation(a, b, [](int x, int y) {
         return x / y;
-    });
+    },"divide");
 }
 
 void CPU::modulo(int a, int b) {
-    operation(a, b, [](int x, int y) {
+    operation(a, b, [](int x, int y)  {
         return x % y;
-    });
+    },"modulo");
 }
 
 
@@ -108,23 +108,26 @@ void CPU::modulo(int a, int b) {
 // Generic operation engine
 // =========================
 
-template<typename Op>
-void CPU::operation(int address, int address2, Op op) {
+template<typename T>
+void CPU::operation(int address, int address2, T op, std::string opName) {
     Data a = memory->read(address);
     Data b = memory->read(address2);
 
     if (a.type != "INT" || b.type != "INT") {
-        std::cout << "\n\033[31mType error\033[0m";
+        std::cout << "\n\033[31mError: Cannot " << opName << " "
+                  << a.type << " & " << b.type << "\033[0m";
         return;
     }
+    if (a.type == "INT" && b.type == "INT") {
+        int x = std::stoi(a.value);
+        int y = std::stoi(b.value);
 
-    int x = std::stoi(a.value);
-    int y = std::stoi(b.value);
+        int result = op(x, y);
 
-    int result = op(x, y);
+        accumulator.type = "INT";
+        accumulator.value = std::to_string(result);
+    }
 
-    accumulator.type = "INT";
-    accumulator.value = std::to_string(result);
 }
 
 

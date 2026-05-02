@@ -51,13 +51,12 @@ public:
     // =========================
 
     template<typename T>
-    void operation(int address, int address2, T op);
+    void operation(int address, int address2, T op, std::string opName);
 
     // =========================
     // Misc
     // =========================
 
-    Variable createVariable();
     void DEVELOPER_Print();
 };
 

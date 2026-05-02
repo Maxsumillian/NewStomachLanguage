@@ -244,8 +244,7 @@ Variable operator%(int b, Calorie &a) {
 Variable operator+(Variable b, Calorie &a) {
     StomachLang::cpu.add(b.getAddress());
 
-    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
-        StomachLang::cpu.add(b.getAddress(), a.getAddress());
+    StomachLang::cpu.add(b.getAddress(), a.getAddress());
 
     return Variable(
         StomachLang::cpu.getAccumulatorDataType(),
@@ -256,8 +255,7 @@ Variable operator+(Variable b, Calorie &a) {
 Variable operator-(Variable b, Calorie &a) {
     StomachLang::cpu.add(b.getAddress());
 
-    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
-        StomachLang::cpu.sub(b.getAddress(), a.getAddress());
+    StomachLang::cpu.sub(b.getAddress(), a.getAddress());
 
     return Variable(
         StomachLang::cpu.getAccumulatorDataType(),
@@ -268,8 +266,8 @@ Variable operator-(Variable b, Calorie &a) {
 Variable operator*(Variable b, Calorie &a) {
     StomachLang::cpu.add(b.getAddress());
 
-    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
-        StomachLang::cpu.multiply(b.getAddress(), a.getAddress());
+
+    StomachLang::cpu.multiply(b.getAddress(), a.getAddress());
 
     return Variable(
         StomachLang::cpu.getAccumulatorDataType(),
@@ -280,8 +278,8 @@ Variable operator*(Variable b, Calorie &a) {
 Variable operator/(Variable b, Calorie &a) {
     StomachLang::cpu.add(b.getAddress());
 
-    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
-        StomachLang::cpu.divide(b.getAddress(), a.getAddress());
+
+    StomachLang::cpu.divide(b.getAddress(), a.getAddress());
 
     return Variable(
         StomachLang::cpu.getAccumulatorDataType(),
@@ -292,8 +290,8 @@ Variable operator/(Variable b, Calorie &a) {
 Variable operator%(Variable b, Calorie &a) {
     StomachLang::cpu.add(b.getAddress());
 
-    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
-        StomachLang::cpu.modulo(b.getAddress(), a.getAddress());
+
+    StomachLang::cpu.modulo(b.getAddress(), a.getAddress());
 
     return Variable(
         StomachLang::cpu.getAccumulatorDataType(),
