@@ -13,6 +13,13 @@ class Foods : public Variable{
     friend std::ostream& operator<<(std::ostream& lhs, Foods& pie);
     friend std::istream& operator>>(std::istream& in, Foods& pie);
 
+    friend bool operator==(Foods x, Foods y);
+    friend bool operator==(Foods x, const char* y);
+    friend bool operator==(const char* y, Foods x);
+    friend bool operator!=(Foods x, Foods y);
+    friend bool operator!=(Foods x, const char* y);
+    friend bool operator!=(const char* y, Foods x);
+
     public:
         Foods();
         // Foods(std::string text);//kina dumb this doesn't work :(

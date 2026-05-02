@@ -20,6 +20,13 @@ class Calorie : public Variable {// The Integer of my langauge type child of Var
     friend Variable operator-(int b,Calorie& a);
     friend Variable operator-(Variable v, Calorie& a);
 
+    friend bool operator>(Calorie x, Calorie y);
+    friend bool operator>=(Calorie x, Calorie y);
+    friend bool operator==(Calorie x, Calorie y);
+    friend bool operator!=(Calorie x, Calorie y);
+    friend bool operator<(Calorie x, Calorie y);
+    friend bool operator<=(Calorie x, Calorie y);
+
 
     friend std::ostream& operator<<(std::ostream& o, Calorie& calorie);
     friend std::istream& operator>>(std::istream& in, Calorie& calorie);
@@ -46,10 +53,6 @@ public:
     Variable operator*(Calorie c);
     Variable operator/(Calorie c);
     Variable operator%(Calorie c);
-
-
-
-
 };
 
 

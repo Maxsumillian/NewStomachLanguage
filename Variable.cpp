@@ -142,6 +142,7 @@ Variable operator+( int b, const Variable& a) {
         return Variable(StomachLang::cpu.getAccumulatorDataType(), std::to_string(std::stoi(StomachLang::cpu.getAccumulatorDataValue()) + b));
 
     std::cout<<"\n\033[31mCannot add "<<StomachLang::cpu.getAccumulatorDataType() <<" and INT\033[0m";
+    return Variable();
 }
 
 Variable operator-( int b, const Variable& a){
@@ -150,6 +151,7 @@ Variable operator-( int b, const Variable& a){
         return Variable(StomachLang::cpu.getAccumulatorDataType(), std::to_string(std::stoi(StomachLang::cpu.getAccumulatorDataValue()) - b));
 
     std::cout<<"\n\033[31mCannot add "<<StomachLang::cpu.getAccumulatorDataType() <<" and INT\033[0m";
+    return Variable();
 }
 
 Variable operator*( int b, const Variable& a){
@@ -158,6 +160,7 @@ Variable operator*( int b, const Variable& a){
         return Variable(StomachLang::cpu.getAccumulatorDataType(), std::to_string(std::stoi(StomachLang::cpu.getAccumulatorDataValue()) * b));
 
     std::cout<<"\n\033[31mCannot add "<<StomachLang::cpu.getAccumulatorDataType() <<" and INT\033[0m";
+    return Variable();
 }
 
 Variable operator/( int b, const Variable& a){
@@ -166,6 +169,7 @@ Variable operator/( int b, const Variable& a){
         return Variable(StomachLang::cpu.getAccumulatorDataType(), std::to_string(std::stoi(StomachLang::cpu.getAccumulatorDataValue()) / b));
 
     std::cout<<"\n\033[31mCannot add "<<StomachLang::cpu.getAccumulatorDataType() <<" and INT\033[0m";
+    return Variable();
 }
 
 Variable operator%( int b, const Variable& a){
@@ -174,4 +178,5 @@ Variable operator%( int b, const Variable& a){
         return Variable(StomachLang::cpu.getAccumulatorDataType(), std::to_string(std::stoi(StomachLang::cpu.getAccumulatorDataValue()) % b));
 
     std::cout<<"\n\033[31mCannot add "<<StomachLang::cpu.getAccumulatorDataType() <<" and INT\033[0m";
+    return Variable();
 }

@@ -4,12 +4,11 @@
 
 
 int main() {
-
-
     // Variable test;// creates empty space in memory // Parent Class of all variable class
     //
     Calorie test2;// test for ints
     test2 = 123;// nice this works
+
     test2 + test2;
     StomachLang::cpu.DEVELOPER_Print();
     test2 = -123 + test2 - test2 % 123 / 234 * test2 + 432;
@@ -33,11 +32,69 @@ int main() {
     // StomachLang::poop() << "hi wassup" << 12 << true << pie << test2 << pie;
     StomachLang::poop() << "Please Enter your age :";
     StomachLang::eat() >> test2;
-
     StomachLang::poop() << test2;
 
+    // ============================================
 
+    Foods output = "Working", string1 = "123", string2 = "123";
 
+    Edible istrue = true, isfalse = false;
+//  Edible , bool
+    if (true == istrue) {
+        StomachLang::poop() << output;
+    }
+
+    if (true != isfalse) {
+        StomachLang::poop() << output;
+    }
+
+    if (istrue == true) {
+        StomachLang::poop() << output;
+    }
+
+    if (isfalse != true) {
+        StomachLang::poop() << output;
+    }
+
+    Calorie mycal1, mycal2;
+    mycal1 = 1;
+    mycal2 = 2;
+
+    if ( mycal1 > mycal2 ) {
+        StomachLang::poop() << output;
+    }
+
+    if ( mycal1 >= mycal2 ) {
+        StomachLang::poop() << output;
+    }
+
+    if ( mycal1 == mycal2 ) {
+        StomachLang::poop() << output;
+    }
+
+    if ( mycal1 <= mycal2 ) {
+        StomachLang::poop() << output;
+    }
+
+    if ( mycal1 < mycal2 ) {
+        StomachLang::poop() << output;
+    }
+
+    if ( mycal1 != mycal2 ) {
+        StomachLang::poop() << output;
+    }
+
+    if ( string1 == string2 ) {
+        StomachLang::poop() << test2;
+    }
+
+    if ( "string1" == string2 ) {
+        StomachLang::poop() << test2;
+    }
+
+    if ( string1 == "string2" ) {
+        StomachLang::poop() << test2;
+    }
 
     // Foods test3;// test for strings
     // Edible test4;// test for boolean

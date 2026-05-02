@@ -9,6 +9,15 @@
 
 class Edible : public Variable{
 
+    friend bool operator==(bool y, Edible x);
+    friend bool operator!=(bool y, Edible x);
+    friend bool operator==(Edible x, bool y);
+    friend bool operator!=(Edible x, bool y);
+    friend bool operator||(Edible x, bool y);
+    friend bool operator&&(Edible x, bool y);
+    friend bool operator||(bool y, Edible x);
+    friend bool operator&&(bool y, Edible x);
+
     friend std::ostream& operator<<(std::ostream& o, Edible& edible);
 
 public:

@@ -37,6 +37,8 @@ Calorie& Calorie::operator=(Variable var2) {
     return *this;
 }
 
+
+
 // calorie + int
 Variable Calorie::operator+(int b){
     StomachLang::cpu.add(address);
