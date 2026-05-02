@@ -112,3 +112,5 @@ Because Construcors are called parent first then Child I am required to use a vi
 
 
 ========================================================================================================================
+
+added Comparason to all my three data types
