@@ -1,32 +1,208 @@
-﻿Langauge Guide
+﻿STOMACHLANG SYNTAX GUIDE
+========================
+I'll be honest i'm not a good writer but I made a draft then had chatGPT poslish it for me :P
+
+OVERVIEW
+--------
+StomachLang is a C++-based system with custom types and a CPU-driven execution model.
+
+- Edible   -> Boolean
+- Calories -> Integer
+- Foods    -> String
+
+All types behave like objects, but ALL expression evaluation is handled by the CPU runtime (StomachLang::cpu).
 
 
-Varibles
+1. VARIABLES
+------------
 
-Bool = Edible
-Integer = Calories
-String = Foods
+BOOLEAN (Edible)
+----------------
+Edible coffee;
+coffee = true;
 
-    Examples:
-        Edible coffee;
-        coffee = true;
-        Edible Plane = false;
-        Edible car(false);
-
-        Foods apple = "apple";
-        Foods pie;
-        pie = "pie";
-        Foods honey("honey");
-
-        Calores applePie = 580;
-        Calories milkShake;
-        milkShake = 300;
-        Calories Cake(800);
+Edible plane = false;
+Edible car(false);
 
 
-    Added: syntax for
-        Calories peachPie = applePie + milkShake;
+INTEGER (Calories)
+------------------
+Calories applePie = 580;
 
-    Added: syntax for
-        Calories PeachPie = applePit + 123 + milkShake + 321;
-        Foods pumkinPie = "eating pie" + " its good " + pie;
+Calories milkShake;
+milkShake = 300;
+
+Calories cake(800);
+
+
+STRING (Foods)
+--------------
+Foods apple = "apple";
+
+Foods pie;
+pie = "pie";
+
+Foods honey("honey");
+
+
+2. ARITHMETIC (Calories)
+------------------------
+Calories a = 100;
+Calories b = 50;
+
+a + b;
+a - b;
+a * b;
+a / b;
+a % b;
+
+Mixed:
+Calories peachPie = applePie + milkShake;
+Calories complex = applePie + 123 + milkShake + 321;
+
+
+3. STRINGS (Foods)
+------------------
+Foods combo = "eating pie" + " its good " + pie;
+
+Rules:
+- Foods + Foods -> concatenation
+- Foods + string literal -> concatenation
+- Foods + INT -> handled by CPU rules (ignored or converted depending on CPU config)
+
+
+4. BOOLEAN (Edible)
+-------------------
+Edible isTrue = true;
+Edible isFalse = false;
+
+if (isTrue == true) {}
+if (isFalse != true) {}
+
+
+5. COMPARISONS
+--------------
+Calories:
+a > b
+a >= b
+a < b
+a <= b
+a == b
+a != b
+
+Foods:
+a == b
+"string" == b
+
+
+6. MIXED EXPRESSIONS (IMPORTANT SYSTEM RULE)
+--------------------------------------------
+
+StomachLang supports mixed expressions between literals and variables.
+
+CORE RULE:
+All expressions are evaluated through the CPU:
+
+StomachLang::cpu is responsible for ALL computation logic.
+
+Operators (+ - * / % == > <) do NOT perform computation directly.
+They only:
+- forward operands to CPU
+- trigger CPU execution
+- return CPU accumulator result
+
+--------------------------------------------
+
+CALORIES (Integer Expressions)
+------------------------------
+Rules:
+- All values are treated as INT internally
+- CPU evaluates expressions step-by-step
+- Left-to-right evaluation unless overridden by CPU precedence rules
+
+Example:
+Calories result = applePie + 123 + milkShake + 321;
+
+Execution order:
+((applePie + 123) + milkShake) + 321
+
+--------------------------------------------
+
+FOODS (String Expressions)
+--------------------------
+Rules:
+- Foods are concatenated using CPU string accumulator
+- String literals are merged seamlessly
+- Non-string values are handled via CPU conversion rules (if enabled)
+
+Example:
+Foods combo = apple + pie + " dessert";
+
+Execution:
+(("apple" + "pie") + " dessert")
+
+--------------------------------------------
+
+MIXED TYPE RULE (STRICT)
+------------------------
+StomachLang does NOT allow implicit cross-type operations unless explicitly supported by CPU.
+
+Invalid:
+Calories + Foods
+Edible + Calories
+Foods + Edible
+
+All cross-type behavior must be defined in CPU conversion logic.
+
+
+7. CPU IS THE SOURCE OF TRUTH
+-----------------------------
+Important architecture rule:
+
+- Operator overloads = syntax layer
+- CPU = execution layer
+- CPU accumulator = final result holder
+
+No expression is complete until processed by:
+StomachLang::cpu
+
+
+8. I/O SYSTEM
+-------------
+OUTPUT:
+StomachLang::poop() << "Hello";
+StomachLang::poop() << variable;
+
+INPUT:
+StomachLang::eat() >> variable;
+
+Example:
+StomachLang::poop() << "Enter age:";
+StomachLang::eat() >> test2;
+
+
+9. CPU DEBUG SYSTEM
+-------------------
+StomachLang::cpu.DEVELOPER_Print();
+StomachLang::cpu.load(1);
+
+
+10. EXAMPLE
+-----------
+Foods apple = "apple";
+Foods pie = "pie";
+
+Foods result = apple + pie + " dessert";
+
+Calories x = 10;
+Calories y = 20;
+Calories z = x + y * 2;
+
+Edible flag = true;
+
+if (flag == true) {
+    StomachLang::poop() << "Running";
+}
+
+
+END OF SPECIFICATION

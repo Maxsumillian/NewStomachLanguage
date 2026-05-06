@@ -1,4 +1,7 @@
-﻿Project StomachLang
+﻿PROJECT STOMACHLANG
+
+NOTE: my writing/grammer is weak but this is a based on a draft I had AI polish check my draft in an older version on ym git
+===================
 
 1.) pick a good theme
     - has to have parallel to input/output
@@ -21,96 +24,243 @@
     - best coding practices
 
 4.) structure project (Big thinking)
-    - how do cpu and memory talk?           through reference: do not create or attach multiple objects with composition
-    - where do i put them?                  Because Lang is my back end all my stuff goes there
+    - how do cpu and memory talk?           through reference
+    - where do i put them?                  Language backend acts as the central system
 
-    - How is my langauge going to work?     My langauge will have classes that mimic base Datatypes They will contain a
-                                            Name, DataType, Address(located in variable for simple access) The user will
-                                            Define these Data Types by declaring objects and using the assign operator
-                                            to set value. The classes will go through the virtual cpu then virtual
-                                            memory to set address.
+    - How is my langauge going to work?
+        My language uses classes that mimic base datatypes:
+        - boolean
+        - int
+        - string
 
-    - override, OverRide, OVERRIDE!         All my classes for variables will use operator overrides to get clean syntax
+        Each variable stores:
+        - name
+        - datatype
+        - memory address
 
-5.) More structure
+        The CPU and Memory handle all actual data storage and retrieval.
 
-        Main (include "langauge.h" ONLY) clean slate for user to try out custom langauge
+    - override, OverRide, OVERRIDE!
+        All variable classes use operator overloading for clean syntax
 
-        Language (Back-end used as a web to combine all parts and structure project)
+5.) system structure
+    Main (only includes "language.h")
+        → clean interface for user
 
-        Language classes
-            replacements for all basic coding things such as
-                - in out stream
-                - variables
-                    - boolean
-                    - int
-                    - strings
-                    - floats
-                    - etc.
-                - potentially loops and conditinals
+    Language layer
+        → connects CPU + Memory + Variables
 
-        CPU
-            - Load
-            - Store
-            - arithmic operators
-            - what is a accumulator? essentially like ram for a cpu temp storage used for varible manipulation
+    CPU
+        - Load / Store
+        - arithmetic operations
+        - accumulator system (temporary computation storage)
 
-        Memory
-            - only stores strings
-            - limited set Memory
-            - Error handling on out-of-bounds memory
-            - Read
-            - write
+    Memory
+        - stores only strings
+        - fixed memory structure
+        - read/write system
+        - bounds checking
 
 
-6.) polish and refine
-        - fix data (private,protected,public)
-        - const data (I need to implement this not used to using const yet)
-        - pointers & references (saves on speed much faster [also not used to this yet])
+6.) polish and refinement goals
+    - access control (private/protected/public)
+    - const correctness
+    - pointers & references optimization
+    - performance improvements
 
 
-features:
-========================================================================================================================
-MY CPU is able to create temp varibles to handle situations like  Variable [var] = [var1] + [var2] + [var3];
-this means that i need to overload the operator+ and have it return a Variable... however i dont want it to change the
-data of the var getting added to
-EDIT: Removed beacuse was causeing errors now it just makes space in memory no garbage collection yet :P
+This is my second attempt at this project.
 
-Ex: var1 + var2  one way to chain it is to return var1 = var1 + var2.
-however now var1 = var1 + var2 and not var1 anymore.
+Originally, I built a version using maps and a symbol table system.
+Each variable stored an address and was retrieved dynamically.
 
-My solution is have my cpu create a temp value that gets stored in the 0 slot (my memory doesn't use the 0 slot)
-then that temp variable is whats used keeping the values in var1 and var2 "safe"
+That system became extremely complex because:
+- variables didn’t clearly track memory location
+- ordering memory required tracking insertion history
+- required additional structures like double arrays for lookup
 
-Now on the issue of creating a variable like this... Variable [var] = [var1] + [var2] + [var3];
-this actually calls a Constructor and it looks for one. specifically its looking for
-
-Variable(FatherVariable var); because the temp variable is kept as a FatherVariable that can later be turned into the correct child
-adding this constructor and assigning the values i'm able to actaully have this type of syntax
-
-Variable [var] = [var1] + [var2] + [var3];
-
-========================================================================================================================
-
-My Cpu has a parser/decoder it simply takes the values and can split them where a ":" shows up.
-
-========================================================================================================================
-
-My CPU has logic built in to reconize addition of multple diffrent datatypes and adds accordengly
-Ei: strings concat
-Ei: int value add
-
-there are some intresting ways i retirved my data from the values
-
-========================================================================================================================
-
-My program uses classes as variables so i can get the same syntax as regualar coding
-
-========================================================================================================================
-
-Because Construcors are called parent first then Child I am required to use a virtual function to call and change some value in my datatype when using inheretance in my constructor class.
+On my second attempt, I simplified the design by storing memory addresses directly inside variables, which made the system significantly easier to manage.
 
 
 ========================================================================================================================
+FINAL ARCHITECTURE OVERVIEW
+========================================================================================================================
 
-added Comparason to all my three data types
+1. CORE DESIGN IDEA
+-------------------
+
+StomachLang is a CPU-driven virtual language system.
+
+Key idea:
+- Variables do NOT store values
+- Variables ONLY store memory addresses
+- CPU is responsible for all data access and computation
+
+
+2. VARIABLE SYSTEM
+------------------
+
+All variables behave like lightweight memory references.
+
+Example:
+Calories x = 100;
+
+Internally:
+- x holds an address
+- value is stored in CPU-managed memory
+- CPU resolves value at runtime
+
+
+3. POLYMORPHISM / TYPE SYSTEM (INHERITANCE BASED)
+-------------------------------------------------
+
+The system uses inheritance for type behavior:
+
+- Edible
+- Calories
+- Foods
+
+Each type defines:
+- valid input type
+- operator behavior
+- CPU interaction rules
+
+
+4. EXPRESSION EVALUATION MODEL
+------------------------------
+
+Expressions are evaluated using the CPU:
+
+Variable result = a + b + c;
+
+Execution:
+- operator+ returns a Variable object
+- CPU stores intermediate results in temporary memory (slot 0)
+- original variables are never modified
+
+
+5. TEMPORARY MEMORY SYSTEM
+--------------------------
+
+- CPU uses reserved memory slot (slot 0)
+- stores intermediate computation results
+- overwritten per expression
+- no garbage collection currently implemented
+
+
+6. CHAINING SYSTEM (FATHER VARIABLE)
+------------------------------------
+
+Before templates were understood, chaining was implemented using:
+
+- operator+ returns a generic Variable type
+- a FatherVariable system holds temporary results
+- child constructors convert FatherVariable into correct type
+
+This allows:
+- chained expressions
+- safe intermediate evaluation
+- controlled memory assignment
+
+
+7. CPU ROLE
+-----------
+
+The CPU is responsible for:
+
+- arithmetic operations
+- comparisons
+- string concatenation
+- memory access
+- expression evaluation
+
+Operators act only as syntax triggers.
+
+
+8. DESIGN INSIGHTS (REFLECTION)
+------------------------------
+
+- Inheritance was used for polymorphism, but could have been replaced with constructor overloading
+- Templates could significantly improve chaining and type handling if redesigning
+- Addition is treated as a special case due to string concatenation behavior
+- CPU-centric architecture simplifies variable behavior but increases system responsibility
+
+
+9. KNOWN LIMITATIONS
+--------------------
+
+- No garbage collection
+- Limited type system (int/string/bool only)
+- CPU holds most complexity
+- Header/function separation issues during development
+- Debugging required careful memory tracking
+
+
+10. FINAL SUMMARY
+-----------------
+
+StomachLang is a CPU-driven virtual language system where:
+
+- variables are memory addresses
+- CPU handles all computation
+- inheritance defines type behavior
+- operator overloading provides syntax layer
+- temporary memory enables expression chaining
+
+It behaves like a simplified interpreter / virtual machine built in C++.
+
+
+11. AI USAGE / DEVELOPMENT SUPPORT
+-----------------------------------
+
+During development, AI tools were used as a supporting resource in the following ways:
+
+1. STRUCTURE SUPPORT
+--------------------
+AI was initially used to help define and organize the overall structure of the project.
+
+This included:
+- breaking the system into CPU / Memory / Language layers
+- helping identify major components of the architecture
+- clarifying how a virtual language system could be structured in C++
+
+This was used as a planning aid, not as direct implementation.
+
+2. DEBUGGING ASSISTANCE
+-----------------------
+AI was heavily used during debugging to understand and resolve issues such as:
+
+- operator overloading compilation errors
+- header vs cpp function definition issues
+- template-related compilation constraints
+- inheritance and constructor initialization order problems
+- memory/address handling mistakes
+- CPU accumulator state bugs
+
+3. COMMON BUG TYPES ENCOUNTERED
+-------------------------------
+
+The most frequent issues were:
+
+- function declaration vs definition mismatches (header file issues)
+- template instantiation errors
+- incorrect type resolution in overloaded operators
+- memory not updating correctly after CPU operations
+- constructor order causing incorrect initialization state
+- runtime type mismatches between CPU and variable system
+
+4. HOW AI WAS USED (IMPORTANT CLARIFICATION)
+-------------------------------------------
+AI was NOT used to generate the final system.
+
+Instead, it was used to:
+- explain compiler errors
+- suggest debugging directions
+- clarify C++ language behavior (especially templates and inheritance)
+- help reason through complex architecture decisions
+
+All core system design decisions and implementation logic were developed manually through iteration and testing.
+
+========================================================================================================================
+END OF PROJECT DOCUMENTATION
+========================================================================================================================

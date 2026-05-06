@@ -7,14 +7,12 @@
 
 #include <iostream>
 #include <string>
+
 #include "CPU.h"
 #include "Memory.h"
-// #include "Variable.h"// class for variable will poly-morph to get different types
 #include "Calorie.h"
 #include "Foods.h"
 #include "Edible.h"
-
-
 
 
 class StomachLang {
@@ -25,26 +23,16 @@ public:
     static Memory memory;
     static CPU cpu;
 
-
-    static void memoryToType(Variable var);//this converts memory encoded data to usable code data EX: string:hi -> "hi" // parser
-    //note: with my cpu i can decode the data already this is redundent
+    static void memoryToType(Variable var);
 
     static void poop(Variable var);
-    //also note: will proably have to make a new class for ostream maybe instead of this?
 
-    // void eat(Calorie prompt);
-    static std::ostream& poop();// can be used to start chain kinda like std::cout
-    static std::ostream& poop(std::string& value); // strings accepted
-    static std::ostream& poop(Variable &value);
+    // stream-style output helpers
+    static std::ostream& poop();
+    static std::ostream& poop(std::string& value);
+    static std::ostream& poop(Variable& value);
 
     static std::istream& eat();
-
 };
-
-
-
-
-
-
 
 #endif //NEWSTOMACHLANGAUGE_STOMACHLANG_H

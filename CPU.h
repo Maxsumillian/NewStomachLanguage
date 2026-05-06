@@ -9,32 +9,35 @@
 #include <string>
 #include "Variable.h"
 #include "Data.h"
+#include <iostream>
 
 class CPU {
 private:
-    Memory* memory;  // pointer to memory so it knows where to reference from
-    // std::string accumulator;
+    Memory* memory;   // pointer to memory so it knows where to reference from
     Data accumulator;
 
-    // std::string decodeDataValue(std::string value);//I only want the cpu to be able to run this so its private
+    // std::string decodeDataValue(std::string value);
     // std::string decodeDataType(std::string value);
 
 public:
-    CPU(Memory* mem);// uses a pointer/refrence for memory
+    CPU(Memory* mem);
 
-    void load(int address);// loads into accumulator
+    void load(int address);
+    void store(int address);
 
-    void store(int address);// takes accumulator value and stores it at location
+    // =========================
+    // Accumulator access
+    // =========================
 
-    // std::string getAccumulator();
     std::string getAccumulatorDataType();
     std::string getAccumulatorDataValue();
-//===================================================================
-    void add(Data d);// single input adds variable type and puts into accumulator doubles as a set accumulator function
-    // void add(std::string value, std::string value2);// so instead of strings here i use addresses then load from memory and then I do the caculations
 
-    // void sub(std::string value, std::string value2);
-//===================================================================
+    // =========================
+    // Core operations
+    // =========================
+
+    void add(Data d);
+
     void add(int address);
     void add(int address, int address2);
 
@@ -43,17 +46,49 @@ public:
     void divide(int address, int address2);
     void modulo(int address, int address2);
 
-    template<typename T>
-    void operation(int address, int address2, T op);
 
+    // =========================
+    // Generic operation system
+    // mixing primal data with my custom EX: int + Claorie;
+    // =========================
 
-    // void add(Variable var1, Variable var2);// double input takes two and tries to add them together
+    // When debugging with ChatGPT I found that this has to be in the header.
+    // It says templates aren’t fully defined functions, so it breaks if the compiler
+    // can’t see the full definition when it instantiates them.
     //
-    Variable createVariable();
+    // This is not about calling it outside a function—templates must be fully visible
+    // wherever they are used so the compiler can generate the correct version.
+    // Other non-template functions work fine in .cpp files because they are fully compiled once.
+    template<typename Op>
+    void applyIntOp(int b, int address, Op operation) {
+            add(address);
+
+            if (accumulator.type == "INT") {
+                int acc = std::stoi(accumulator.value);
+                int result = operation(acc, b);
+
+                accumulator = Data{
+                    "INT",
+                    std::to_string(result)
+                    };
+            }else {
+                std::cout << "\n\033[31mCannot operate on "
+                      << accumulator.type
+                      << " and INT\033[0m";
+            }
+    }
+
+    // Note: This is another template function But it's declared in the header and defined in the .cpp,
+    // and it works there. The difference is that it is not being instantiated with a lambda
+    // type like this one, so it doesn’t trigger the same compile-time generation requirement.
+    template<typename T>
+    void operation(int address, int address2, T op, std::string opName);
+
+    // =========================
+    // Misc
+    // =========================
 
     void DEVELOPER_Print();
 };
-
-
 
 #endif //NEWSTOMACHLANGAUGE_CPU_H

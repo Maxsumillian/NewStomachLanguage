@@ -7,195 +7,249 @@
 
 
 Memory StomachLang::memory(1080);
-
 CPU StomachLang::cpu(&StomachLang::memory);
 
-void StomachLang::poop(Variable var) {
-    // std::cout << var.getValue();
-}
+
+// =========================
+// Output helpers (poop)
+// =========================
 
 std::ostream& StomachLang::poop() {
     return std::cout;
 }
+
 std::ostream& StomachLang::poop(std::string& value) {
     return std::cout << value;
 }
-std::ostream& StomachLang::poop(Variable &value) {
+
+std::ostream& StomachLang::poop(Variable& value) {
     cpu.add(value.getAddress());
     return std::cout << cpu.getAccumulatorDataValue();
 }
-std::istream& StomachLang::eat() {
-    return std::cin;
-}
 
-// freinds for operator overloads out of scope
+
+
+
+
+// =========================
+// Stream operators
+// =========================
+
 std::ostream& operator<<(std::ostream& o, Foods& food) {
     StomachLang::cpu.add(food.getAddress());
     o << StomachLang::cpu.getAccumulatorDataValue();
     return o;
 }
+
 std::ostream& operator<<(std::ostream& o, Calorie& calorie) {
     StomachLang::cpu.add(calorie.getAddress());
     o << StomachLang::cpu.getAccumulatorDataValue();
     return o;
 }
+
 std::ostream& operator<<(std::ostream& o, Edible& edible) {
     StomachLang::cpu.add(edible.getAddress());
     o << StomachLang::cpu.getAccumulatorDataValue();
     return o;
 }
+
+// =========================
+// Input helper (eat)
+// =========================
+
+std::istream& StomachLang::eat() {
+    return std::cin;
+}
+
+// =========================
+// Input operators
+// =========================
+
 std::istream& operator>>(std::istream& in, Foods& food) {
     std::string value;
     in >> value;
-    StomachLang::cpu.add(Data{"String",value});
+
+    StomachLang::cpu.add(Data{"String", value});
     StomachLang::cpu.store(food.getAddress());
-    return in;
-}
-std::istream& operator>>(std::istream& in, Calorie& calorie) {
-    int value;
-    in >> value;
-    StomachLang::cpu.add(Data{"Int",std::to_string(value)});
-    StomachLang::cpu.store(calorie.getAddress());
-    return in;
-}
-std::istream& operator>>(std::istream& in, Edible& edible) {
-    bool value;
-    in >> value;
-    StomachLang::cpu.add(Data{"Bool",(value ? "true" : "false")});
-    StomachLang::cpu.store(edible.getAddress());
+
     return in;
 }
 
-// freinds
+std::istream& operator>>(std::istream& in, Calorie& calorie) {
+    int value;
+    in >> value;
+
+    StomachLang::cpu.add(Data{"INT", std::to_string(value)});
+    StomachLang::cpu.store(calorie.getAddress());
+
+    return in;
+}
+
+std::istream& operator>>(std::istream& in, Edible& edible) {
+    bool value;
+    in >> value;
+
+    StomachLang::cpu.add(Data{"Bool", (value ? "true" : "false")});
+    StomachLang::cpu.store(edible.getAddress());
+
+    return in;
+}
+
+
+
+
+
+// =========================
+// Edible comparisons
+// =========================
+
 bool operator==(bool y, Edible x) {
     StomachLang::cpu.add(x.getAddress());
     return y == (StomachLang::cpu.getAccumulatorDataValue() == "true");
 }
+
 bool operator!=(bool y, Edible x) {
     StomachLang::cpu.add(x.getAddress());
     return y != (StomachLang::cpu.getAccumulatorDataValue() == "true");
 }
+
 bool operator==(Edible x, bool y) {
     StomachLang::cpu.add(x.getAddress());
     return (StomachLang::cpu.getAccumulatorDataValue() == "true") == y;
 }
+
 bool operator!=(Edible x, bool y) {
     StomachLang::cpu.add(x.getAddress());
     return (StomachLang::cpu.getAccumulatorDataValue() == "true") != y;
 }
+
 bool operator&&(Edible x, bool y) {
     StomachLang::cpu.add(x.getAddress());
     return (StomachLang::cpu.getAccumulatorDataValue() == "true") && y;
 }
+
 bool operator||(Edible x, bool y) {
     StomachLang::cpu.add(x.getAddress());
     return (StomachLang::cpu.getAccumulatorDataValue() == "true") || y;
 }
 
+bool operator&&(bool y, Edible x) {
+    StomachLang::cpu.add(x.getAddress());
+    return (StomachLang::cpu.getAccumulatorDataValue() == "true") && y;
+}
 
-// freinds cal
+bool operator||(bool y, Edible x) {
+    StomachLang::cpu.add(x.getAddress());
+    return (StomachLang::cpu.getAccumulatorDataValue() == "true") || y;
+}
+
+
+
+// =========================
+// Calorie comparisons
+// =========================
+
+int getCalorieValue(Calorie& c) {
+    StomachLang::cpu.add(c.getAddress());
+
+    if (StomachLang::cpu.getAccumulatorDataType() != "INT") {
+        std::cout << "Type error in Calorie access\n";// added after my boolean problem :p
+        // the story goes
+        // bool num1 = 100;
+        // int num2 = 99;
+        // if(num1 > num2)
+        // COMPILES:
+        // Runtime Error:
+        // Headache...
+        return 0;
+    }
+
+    return std::stoi(StomachLang::cpu.getAccumulatorDataValue());
+}
 bool operator>(Calorie x, Calorie y) {
-    StomachLang::cpu.add(x.getAddress());
-    int xVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    StomachLang::cpu.add(y.getAddress());
-    int yVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    return xVal > yVal;
+    return getCalorieValue(x) > getCalorieValue(y);
 }
+
 bool operator>=(Calorie x, Calorie y) {
-    StomachLang::cpu.add(x.getAddress());
-    int xVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    StomachLang::cpu.add(y.getAddress());
-    int yVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    return xVal >= yVal;
+    return getCalorieValue(x) >= getCalorieValue(y);
 }
+
 bool operator==(Calorie x, Calorie y) {
-    StomachLang::cpu.add(x.getAddress());
-    int xVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    StomachLang::cpu.add(y.getAddress());
-    int yVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    return xVal == yVal;
+    return getCalorieValue(x) == getCalorieValue(y);
 }
+
 bool operator<=(Calorie x, Calorie y) {
-    StomachLang::cpu.add(x.getAddress());
-    int xVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    StomachLang::cpu.add(y.getAddress());
-    int yVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    return xVal <= yVal;
+    return getCalorieValue(x) <= getCalorieValue(y);
 }
+
 bool operator<(Calorie x, Calorie y) {
-    StomachLang::cpu.add(x.getAddress());
-    int xVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    StomachLang::cpu.add(y.getAddress());
-    int yVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    return xVal < yVal;
+    return getCalorieValue(x) < getCalorieValue(y);
 }
+
 bool operator!=(Calorie x, Calorie y) {
-    StomachLang::cpu.add(x.getAddress());
-    int xVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    StomachLang::cpu.add(y.getAddress());
-    int yVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    return xVal != yVal;
+    return getCalorieValue(x) != getCalorieValue(y);
 }
-// freind string
+
+// =========================
+// Foods comparisons
+// ========================
+
+//added a central helper function templating this code was not worth it because order implications mess it up meaning i woudld have to make 3 template funcitons
+std::string getFoodValue(Foods& f) {
+    StomachLang::cpu.add(f.getAddress());
+    return StomachLang::cpu.getAccumulatorDataValue();
+}
+
 bool operator==(Foods x, Foods y) {
-    StomachLang::cpu.add(x.getAddress());
-    std::string xVal = StomachLang::cpu.getAccumulatorDataValue();
-
-    StomachLang::cpu.add(y.getAddress());
-    std::string yVal = StomachLang::cpu.getAccumulatorDataValue();
-
-    return xVal == yVal;
+    return getFoodValue(x) == getFoodValue(y);
 }
+
 bool operator==(Foods x, const char* y) {
-    StomachLang::cpu.add(x.getAddress());
-    std::string xVal = StomachLang::cpu.getAccumulatorDataValue();
-
-    std::string yVal = std::string(y);
-
-    return xVal == yVal;
+    return getFoodValue(x) == std::string(y);
 }
+
 bool operator==(const char* y, Foods x) {
-    StomachLang::cpu.add(x.getAddress());
-    std::string xVal = StomachLang::cpu.getAccumulatorDataValue();
-
-    std::string yVal = std::string(y);
-
-    return yVal == xVal;
+    return std::string(y) == getFoodValue(x);
 }
+
 bool operator!=(Foods x, Foods y) {
-    StomachLang::cpu.add(x.getAddress());
-    std::string xVal = StomachLang::cpu.getAccumulatorDataValue();
-
-    StomachLang::cpu.add(y.getAddress());
-    std::string yVal = StomachLang::cpu.getAccumulatorDataValue();
-
-    return xVal != yVal;
+    return getFoodValue(x) != getFoodValue(y);
 }
+
 bool operator!=(Foods x, const char* y) {
-    StomachLang::cpu.add(x.getAddress());
-    std::string xVal = StomachLang::cpu.getAccumulatorDataValue();
-
-    std::string yVal = std::string(y);
-
-    return xVal != yVal;
+    return getFoodValue(x) != std::string(y);
 }
+
 bool operator!=(const char* y, Foods x) {
-    StomachLang::cpu.add(x.getAddress());
-    std::string xVal = StomachLang::cpu.getAccumulatorDataValue();
+    return std::string(y) != getFoodValue(x);
+}
+// =========================
+// int + Variable ops
+// chat-GPT helped me make a Template Helper for these overloaded funcions
+// beacuse this is the specific case of ints plus Varibles its consistent and a template is useable here
+// =========================
 
-    std::string yVal = std::string(y);
+Variable operator+(int b, const Variable& a) {
+    StomachLang::cpu.applyIntOp(b,a.address,[](int x, int y) { return x + y; });
+    return Variable(StomachLang::cpu.getAccumulatorDataType(), StomachLang::cpu.getAccumulatorDataValue());
+}
 
-    return yVal != xVal;
+Variable operator-(int b, const Variable& a) {
+    StomachLang::cpu.applyIntOp(b,a.address,[](int x, int y) { return x - y; });
+    return Variable(StomachLang::cpu.getAccumulatorDataType(), StomachLang::cpu.getAccumulatorDataValue());
+}
+
+Variable operator*(int b, const Variable& a) {
+    StomachLang::cpu.applyIntOp(b,a.address,[](int x, int y) { return x * y; });
+    return Variable(StomachLang::cpu.getAccumulatorDataType(), StomachLang::cpu.getAccumulatorDataValue());
+}
+
+Variable operator/(int b, const Variable& a) {
+    StomachLang::cpu.applyIntOp(b,a.address,[](int x, int y) { return x / y; });
+    return Variable(StomachLang::cpu.getAccumulatorDataType(), StomachLang::cpu.getAccumulatorDataValue());
+}
+
+Variable operator%(int b, const Variable& a) {
+    StomachLang::cpu.applyIntOp(b,a.address,[](int x, int y) { return x % y; });
+    return Variable(StomachLang::cpu.getAccumulatorDataType(), StomachLang::cpu.getAccumulatorDataValue());
 }

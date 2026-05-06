@@ -1,196 +1,95 @@
 #include "StomachLang.h"
 
-
-
-
 int main() {
-    // Variable test;// creates empty space in memory // Parent Class of all variable class
-    //
-    Calorie test2;// test for ints
-    test2 = 123;// nice this works
+// Example code using my Stomach Lang
+    //Built a simple Caculator
+    Calorie a, b, result;// decleration
+    Calorie choice;
+    Edible loop = true;
 
-    test2 + test2;
-    StomachLang::cpu.DEVELOPER_Print();
-    test2 = -123 + test2 - test2 % 123 / 234 * test2 + 432;
-    StomachLang::cpu.DEVELOPER_Print();
+    while (loop == true)// small limitation Edible does not return Bool
+        //Workaround would be to make my own "while" class that takes in Ebible class
+        //Or overload the while loop to add Edible to it.
+    {
+        StomachLang::poop() << "\n===== StomachLang Calculator =====";//Example of My cout [StomachLang::poop() << "string"]
+        StomachLang::poop() << "\n1. Add";
+        StomachLang::poop() << "\n2. Subtract";
+        StomachLang::poop() << "\n3. Multiply";
+        StomachLang::poop() << "\n4. Divide";
+        StomachLang::poop() << "\n5+ Exit";
+        StomachLang::poop() << "\nChoose option:";
 
-    Foods foods = "Please work";
-    foods = foods + foods + 123;//ignores the integer and give error messege
-    StomachLang::cpu.DEVELOPER_Print();
-    foods = foods + " im testing this add";
-    StomachLang::cpu.DEVELOPER_Print();
+        StomachLang::eat() >> choice;//Example of My cin "StomachLang::eat() >> [varible]"
 
-    Foods apple = "apple";
-    Foods pie;
-    pie = "pie";
-    Foods honey("honey");
-    Foods pumkinPie = pie+ pie + "eating pie its good " + pie;
-    StomachLang::cpu.DEVELOPER_Print();//prints whats in acucmulator right now
+        if (choice == 5)// example of comparison of Edible to Int
+        {
+            StomachLang::poop() << "\nExiting calculator...";
+            break;
 
-    int x;
+        }
 
-    // StomachLang::poop() << "hi wassup" << 12 << true << pie << test2 << pie;
-    StomachLang::poop() << "Please Enter your age :";
-    StomachLang::eat() >> test2;
-    StomachLang::poop() << test2;
+        Calorie choiceOne = 1;
+        Calorie choiceFive = 5;
 
-    // ============================================
+        // if (choice < 1 || choice > 5)
+        if (choice < choiceOne || choice > choiceFive){//example of comparison operators using my INT
+            StomachLang::poop() << "\nInvalid option";
+        }else {
+            StomachLang::poop() << "\nEnter first value:";
+            StomachLang::eat() >> a;
 
-    Foods output = "Working", string1 = "123", string2 = "123";
+            StomachLang::poop() << "\nEnter second value:";
+            StomachLang::eat() >> b;
+        }
 
-    Edible istrue = true, isfalse = false;
-//  Edible , bool
-    if (true == istrue) {
-        StomachLang::poop() << output;
+
+
+
+
+        // if (choice == choiceOne)// example of comparison Edible to Edible
+        if (choice == choiceOne)
+        {
+            result = a + b; // example of overloaded= and overloaded+ as well as chaining
+            StomachLang::poop() << a <<" + " << b <<" = " << result;// example of chaining strings in my cout
+        }
+        else if (choice == 2)
+        {
+            result = a - b;
+            StomachLang::poop() << a <<" - " << b <<" = " <<  result;
+        }
+        else if (choice == 3)
+        {
+            result = a * b;
+            StomachLang::poop() << a <<" * " << b <<" = " <<  result;
+        }
+        else if (choice == 4)
+        {
+            if (b == 0)
+            {
+                StomachLang::poop() << "\nError: division by zero";
+            }
+            else
+            {
+                result = a / b;
+                StomachLang::poop() << a <<" / " << b <<" = " <<  result;
+            }
+        }
+        else
+        {
+            StomachLang::poop() << "\nExiting calculator...";
+            break;
+        }
     }
 
-    if (true != isfalse) {
-        StomachLang::poop() << output;
-    }
+    Calorie myCalorie = 0;
+    Foods myFood = "Test Food";
+    myFood = myFood + myCalorie;//not possible
+    myFood = myFood - myCalorie;//example of error messeges
 
-    if (istrue == true) {
-        StomachLang::poop() << output;
-    }
 
-    if (isfalse != true) {
-        StomachLang::poop() << output;
-    }
-
-    Calorie mycal1, mycal2;
-    mycal1 = 1;
-    mycal2 = 2;
-
-    if ( mycal1 > mycal2 ) {
-        StomachLang::poop() << output;
-    }
-
-    if ( mycal1 >= mycal2 ) {
-        StomachLang::poop() << output;
-    }
-
-    if ( mycal1 == mycal2 ) {
-        StomachLang::poop() << output;
-    }
-
-    if ( mycal1 <= mycal2 ) {
-        StomachLang::poop() << output;
-    }
-
-    if ( mycal1 < mycal2 ) {
-        StomachLang::poop() << output;
-    }
-
-    if ( mycal1 != mycal2 ) {
-        StomachLang::poop() << output;
-    }
-
-    if ( string1 == string2 ) {
-        StomachLang::poop() << test2;
-    }
-
-    if ( "string1" == string2 ) {
-        StomachLang::poop() << test2;
-    }
-
-    if ( string1 == "string2" ) {
-        StomachLang::poop() << test2;
-    }
-
-    // Foods test3;// test for strings
-    // Edible test4;// test for boolean
-    //
-    // Edible test5 = false;// requires constructor
-    // Foods test6 = "test String";
-    // Calorie test7 = 321;
-    // Calorie test8(213);
-    // //
-    // //
-    // //
-    // StomachLang::cpu.load(1);
-    // StomachLang::cpu.DEVELOPER_Print();
-    //
-    // StomachLang::cpu.load(2);
-    // StomachLang::cpu.DEVELOPER_Print();
-    //
-    // StomachLang::cpu.load(3);
-    // StomachLang::cpu.DEVELOPER_Print();
-    //
-    // StomachLang::cpu.load(4);
-    // StomachLang::cpu.DEVELOPER_Print();
-    // // std::cout<<"\ntest  address :"<<test.getAddress();
-    // // std::cout<<"\ntest2 address :"<<test2.getAddress();
-    // // std::cout<<"\ntest3 address :"<<test3.getAddress();
-    // // std::cout<<"\ntest4 address :"<<test4.getAddress();
-    // //
-    //
-    // test3 = "Wassup";// this also works!
-    // test4 = false;
-    // //
-    // // //since its from cpu it returns the encoded values
-    // // //prints out what's stored in my virtual memory
-    // StomachLang::cpu.load(1);
-    // StomachLang::cpu.DEVELOPER_Print();
-    // // //
-    // StomachLang::cpu.load(2);
-    // StomachLang::cpu.DEVELOPER_Print();
-    // // //
-    // StomachLang::cpu.load(3);
-    // StomachLang::cpu.DEVELOPER_Print();
-    //
-    // StomachLang::cpu.load(4);
-    // StomachLang::cpu.DEVELOPER_Print();
-    //
-    // StomachLang::cpu.load(5);
-    // StomachLang::cpu.DEVELOPER_Print();
-    // // //
-    // StomachLang::cpu.load(6);
-    // StomachLang::cpu.DEVELOPER_Print();
-    //
-    // StomachLang::cpu.load(7);
-    // StomachLang::cpu.DEVELOPER_Print();
-    // // //
-    // std::cout << std::endl << "\n\n\n\nTest Addition:\n\n\n\n";
-
-    // // //
-    // test + test2;
-    // StomachLang::cpu.DEVELOPER_Print();
-    // // //
-    // test3 + test6;
-    // StomachLang::cpu.DEVELOPER_Print();
-    // //
-    // //
-    // test3 - test6;// error cannot subtract strings
-    // // StomachLang::cpu.DEVELOPER_Print();
-    // //
-    // // test8 = test8 - test2;
-    // test2 + test2 + test2;// chaining aquired!//negative address?
-    // StomachLang::cpu.DEVELOPER_Print();
-    // //
-    // // std::cout <<std::endl;
-    // // StomachLang::poop(test2);// returns 123
-    // //
-    // test2 = test2 + test2;// Yay i got it working!
-    // StomachLang::cpu.DEVELOPER_Print();
-    // //
-    // // std::cout <<std::endl;
-    // // StomachLang::poop(test2); // returns 246
-    // //
-    // Calorie test9 = test2 + test2;// Yay i got it working!
-    // StomachLang::cpu.DEVELOPER_Print();
-    //
-    // ///////////////////////////////////////////////////////////////
-    // ///////////////////////////////////////////////////////////////
-    // // test6 = test6 + test6;// nice i got strings working!// this breaks the whole system
-    // // StomachLang::cpu.DEVELOPER_Print();
-    // ///////////////////////////////////////////////////////////////
-    // ///////////////////////////////////////////////////////////////
-    //
-    //
-    // //
-    // Calorie applePie = 100;
-    // Calorie milkShake = 50;
-    // Calorie peachPie = applePie + milkShake;// currently doesnt work...
-    // //EDIT: works now! need to create a construcor to take in Variables
+    Edible test = 100;// this compiles but is all wrong
+    bool testing = 199;// its beacuse this is allowed for some reason...
+    std::cout << testing << std::endl;
 
 
     return 0;
