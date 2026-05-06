@@ -243,7 +243,6 @@ Variable operator%(int b, Calorie &a) {
 
 Variable operator+(Variable b, Calorie &a) {
     StomachLang::cpu.add(b.getAddress());
-
     StomachLang::cpu.add(b.getAddress(), a.getAddress());
 
     return Variable(
@@ -254,7 +253,6 @@ Variable operator+(Variable b, Calorie &a) {
 
 Variable operator-(Variable b, Calorie &a) {
     StomachLang::cpu.add(b.getAddress());
-
     StomachLang::cpu.sub(b.getAddress(), a.getAddress());
 
     return Variable(
@@ -265,8 +263,6 @@ Variable operator-(Variable b, Calorie &a) {
 
 Variable operator*(Variable b, Calorie &a) {
     StomachLang::cpu.add(b.getAddress());
-
-
     StomachLang::cpu.multiply(b.getAddress(), a.getAddress());
 
     return Variable(
@@ -277,8 +273,6 @@ Variable operator*(Variable b, Calorie &a) {
 
 Variable operator/(Variable b, Calorie &a) {
     StomachLang::cpu.add(b.getAddress());
-
-
     StomachLang::cpu.divide(b.getAddress(), a.getAddress());
 
     return Variable(
@@ -289,8 +283,6 @@ Variable operator/(Variable b, Calorie &a) {
 
 Variable operator%(Variable b, Calorie &a) {
     StomachLang::cpu.add(b.getAddress());
-
-
     StomachLang::cpu.modulo(b.getAddress(), a.getAddress());
 
     return Variable(
