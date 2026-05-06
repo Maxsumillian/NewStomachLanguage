@@ -146,16 +146,16 @@ void CPU::compare(int address, int address2, std::string op){
     }
     if (a.type == "INT" && b.type == "INT") {
         if (op == ">") {
-            accumulator.value = (a.value > b.value ? "true" : "false");
+            accumulator.value = (std::stoi(a.value) > std::stoi(b.value)? "true" : "false");
         }
         if (op == "<") {
-            accumulator.value = (a.value < b.value ? "true" : "false");
+            accumulator.value = (std::stoi(a.value) < std::stoi(b.value) ? "true" : "false");
         }
         if (op == ">=") {
-            accumulator.value = (a.value >= b.value ? "true" : "false");
+            accumulator.value = (std::stoi(a.value) >= std::stoi(b.value) ? "true" : "false");
         }
         if (op == "<=") {
-            accumulator.value = (a.value <= b.value ? "true" : "false");
+            accumulator.value = (std::stoi(a.value) <= std::stoi(b.value) ? "true" : "false");
         }
     }
     if (a.type == "Bool" && b.type == "Bool") {
