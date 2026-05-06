@@ -1,4 +1,7 @@
-﻿Project StomachLang
+﻿PROJECT STOMACHLANG
+
+NOTE: my writing/grammer is weak but this is a based on a draft I had AI polish check my draft in an older version on ym git
+===================
 
 1.) pick a good theme
     - has to have parallel to input/output
@@ -21,421 +24,243 @@
     - best coding practices
 
 4.) structure project (Big thinking)
-    - how do cpu and memory talk?           through reference: do not create or attach multiple objects with composition
-    - where do i put them?                  Because Lang is my back end all my stuff goes there
+    - how do cpu and memory talk?           through reference
+    - where do i put them?                  Language backend acts as the central system
 
-    - How is my langauge going to work?     My langauge will have classes that mimic base Datatypes They will contain a
-                                            Name, DataType, Address(located in variable for simple access) The user will
-                                            Define these Data Types by declaring objects and using the assign operator
-                                            to set value. The classes will go through the virtual cpu then virtual
-                                            memory to set address.
+    - How is my langauge going to work?
+        My language uses classes that mimic base datatypes:
+        - boolean
+        - int
+        - string
 
-    - override, OverRide, OVERRIDE!         All my classes for variables will use operator overrides to get clean syntax
+        Each variable stores:
+        - name
+        - datatype
+        - memory address
 
-5.) More structure
+        The CPU and Memory handle all actual data storage and retrieval.
 
-        Main (include "langauge.h" ONLY) clean slate for user to try out custom langauge
+    - override, OverRide, OVERRIDE!
+        All variable classes use operator overloading for clean syntax
 
-        Language (Back-end used as a web to combine all parts and structure project)
+5.) system structure
+    Main (only includes "language.h")
+        → clean interface for user
 
-        Language classes
-            replacements for all basic coding things such as
-                - in out stream
-                - variables
-                    - boolean
-                    - int
-                    - strings
-                    - floats
-                    - etc.
-                - potentially loops and conditinals
+    Language layer
+        → connects CPU + Memory + Variables
 
-        CPU
-            - Load
-            - Store
-            - arithmic operators
-            - what is a accumulator? essentially like ram for a cpu temp storage used for varible manipulation
+    CPU
+        - Load / Store
+        - arithmetic operations
+        - accumulator system (temporary computation storage)
 
-        Memory
-            - only stores strings
-            - limited set Memory
-            - Error handling on out-of-bounds memory
-            - Read
-            - write
+    Memory
+        - stores only strings
+        - fixed memory structure
+        - read/write system
+        - bounds checking
 
 
-6.) polish and refine
-        - fix data (private,protected,public)
-        - const data (I need to implement this not used to using const yet)
-        - pointers & references (saves on speed much faster [also not used to this yet])
+6.) polish and refinement goals
+    - access control (private/protected/public)
+    - const correctness
+    - pointers & references optimization
+    - performance improvements
 
 
-this is my second time makign this projcet i originally made a version starting with maps and i had address stored in memory and retirved with a symbol table but that was veyr very complex beacuse now vairbels dont know where they are in memory and i have to keep track of what was added when and then use a doubel array to grab teh rigth values... it was alot to understand.
+This is my second attempt at this project.
 
-this did make me confident in my second try, with better direcitno and being told to keep my address in my vairable class all i had to worry about was passing data and retirving it wich was much much easier compared to the symbol table...
+Originally, I built a version using maps and a symbol table system.
+Each variable stored an address and was retrieved dynamically.
 
-on my second attempt i started from strach after being told to keep address in the varibel im making that made thisng a whole lot simpler and i mostly used chat gpt for debuggin and leanign bugs and qurks of c++. My biggist probelm duing compiolation was actually definng funcitons in my header files and not declaring them it somtimes just doesnt compile... also sometiems cacheing erros and just tedious stuff.
+That system became extremely complex because:
+- variables didn’t clearly track memory location
+- ordering memory required tracking insertion history
+- required additional structures like double arrays for lookup
 
-I also did not knwo about templates untilt late in development so i had made workaorunds that with clever use of heirachy and constructor classes,
-
-I did use some templats for some of my operations overloads but if i had remake this project again i would use templates heavily in my datatype chaining
+On my second attempt, I simplified the design by storing memory addresses directly inside variables, which made the system significantly easier to manage.
 
 
-POLYMORPHISM / VARIABLE ARCHITECTURE (DESIGN NOTES)
-===================================================
+========================================================================================================================
+FINAL ARCHITECTURE OVERVIEW
+========================================================================================================================
 
-1. CORE VARIABLE DESIGN
------------------------
+1. CORE DESIGN IDEA
+-------------------
 
-StomachLang variables are NOT traditional data containers.
+StomachLang is a CPU-driven virtual language system.
 
-Instead:
-- Each variable ONLY stores a memory address
-- All actual data lives inside CPU-controlled memory
-- The CPU resolves values using these addresses
+Key idea:
+- Variables do NOT store values
+- Variables ONLY store memory addresses
+- CPU is responsible for all data access and computation
+
+
+2. VARIABLE SYSTEM
+------------------
+
+All variables behave like lightweight memory references.
 
 Example:
 Calories x = 100;
 
 Internally:
-- x does NOT store "100"
-- x stores a memory address
-- CPU retrieves value from memory using that address
+- x holds an address
+- value is stored in CPU-managed memory
+- CPU resolves value at runtime
 
 
-2. STATIC MEMORY TRACKING SYSTEM
----------------------------------
+3. POLYMORPHISM / TYPE SYSTEM (INHERITANCE BASED)
+-------------------------------------------------
 
-A static system tracks variable creation.
+The system uses inheritance for type behavior:
 
-- Every new variable increments a global/static counter
-- Each variable is assigned a unique memory address
-- The CPU uses this address to access stored values
-
-This enables:
-- centralized memory control
-- predictable allocation
-- CPU-managed execution model
-
-
-3. INHERITANCE-BASED TYPE SYSTEM (ACTUAL IMPLEMENTATION)
---------------------------------------------------------
-
-The system uses inheritance to define variable types:
-
-- Edible   (base or related type)
-- Calories (derived type)
-- Foods    (derived type)
+- Edible
+- Calories
+- Foods
 
 Each type defines:
-- valid input types (int, string, bool)
-- behavior in CPU operations
-- operator overload behavior
-
-This was used as the main polymorphism system.
+- valid input type
+- operator behavior
+- CPU interaction rules
 
 
-4. DESIGN INSIGHT (REFLECTION)
+4. EXPRESSION EVALUATION MODEL
 ------------------------------
 
-I could have used templates to optimize the chaining of commands.
+Expressions are evaluated using the CPU:
 
-Example:
-- Calories would return Calories
-- Variables would return Variables
+Variable result = a + b + c;
 
-But at the time, I did not know about templates, so I made the return type generic by returning a base Variable class.
-
-Because of this, each child class needed a constructor that accepts a Variable as a parameter.
-This constructor would then transfer (“swap”) the data into the correct memory location for that specific type.
-
-Also, although a constructor-based type distinction system was possible, it would not have allowed me to define variable types as separate class definitions.
-
-Instead, all variables would effectively become one general “Variable system” acting as a central controller, which was not the design I wanted.
-
-Using inheritance and separate child classes was therefore necessary to achieve distinct type definitions such as:
-
-Calories myCal = 10;
-
-
-5. VARIABLE STORAGE MODEL
-------------------------
-
-A key design feature:
-
-- Variables do NOT store raw data
-- They only store memory addresses
-- All data access is routed through the CPU
-
-This creates a strict separation between:
-- variable identity (address)
-- variable value (CPU memory)
-
-
-6. CHAINED EXPRESSIONS + RETURN BEHAVIOR
-----------------------------------------
-
-Expression chaining is supported:
-
-Example:
-Calories result = a + b + c;
-
-Design behavior:
+Execution:
 - operator+ returns a Variable object
-- results are stored in CPU-managed temporary memory
-- original variables remain unchanged
+- CPU stores intermediate results in temporary memory (slot 0)
+- original variables are never modified
+
+
+5. TEMPORARY MEMORY SYSTEM
+--------------------------
+
+- CPU uses reserved memory slot (slot 0)
+- stores intermediate computation results
+- overwritten per expression
+- no garbage collection currently implemented
+
+
+6. CHAINING SYSTEM (FATHER VARIABLE)
+------------------------------------
+
+Before templates were understood, chaining was implemented using:
+
+- operator+ returns a generic Variable type
+- a FatherVariable system holds temporary results
+- child constructors convert FatherVariable into correct type
 
 This allows:
-- safe chaining
-- non-destructive operations
-- CPU-controlled evaluation flow
+- chained expressions
+- safe intermediate evaluation
+- controlled memory assignment
 
 
-7. CPU-BASED CONVERSION/ARITHMIC SYSTEM
-------------------------------
-For my comparison operators, I implemented them as friend functions inside my language system class.
+7. CPU ROLE
+-----------
 
-These functions retrieve values from the CPU (via memory addresses) and then perform the comparison in C++.
+The CPU is responsible for:
 
-I could have moved all of this logic directly into the CPU, but that would require adding many additional primitive comparison functions, which would significantly increase complexity.
-
-I am currently exploring templates to reduce repetition, but depending on how operator overloading behaves, it may not be worth it because I would still end up creating multiple specialized cases. so helper functions may be better
-
-For now, I am satisfied with the current approach:
-- data is retrieved from memory
-- then compared using primitive C++ operations
-
-Alternatively, I could fully delegate comparisons to the CPU and have it return the result, but that feels somewhat redundant given the current design already achieves the same outcome.
-
-
-For arithmetic operators, all operations are handled inside the CPU even primitive.
-
-I also created a template helper for arithmetic operations between variables, which works for most cases.
-
-However, addition is treated as a special case because it supports both:
-- numeric addition
+- arithmetic operations
+- comparisons
 - string concatenation
+- memory access
+- expression evaluation
 
-Because of this dual behavior, addition was excluded from the generic arithmetic template helper to keep the implementation simpler and more controlled.
+Operators act only as syntax triggers.
 
-Because i currently only have an int (no floats or doubles) i have a template funciotn that my overloads talk to through my cpu to set data in acucmulator to retirve to set to a new variable to set data to.
 
-Templates would help with my arithmic funcintos as well as including floats and doubles.
+8. DESIGN INSIGHTS (REFLECTION)
+------------------------------
 
-Personally i dont feel like implementing them but if i ever am bored and decide to refactor this whole project i woud lrebuild from scratch and implement templates very very heavily into the project.
+- Inheritance was used for polymorphism, but could have been replaced with constructor overloading
+- Templates could significantly improve chaining and type handling if redesigning
+- Addition is treated as a special case due to string concatenation behavior
+- CPU-centric architecture simplifies variable behavior but increases system responsibility
 
 
-
-
-8. SUMMARY
-----------
-
-StomachLang variables behave as:
-
-- memory-address wrappers
-- CPU-resolved values
-- inheritance-based polymorphic types
-- non-owning references to stored data
-
-The system prioritizes:
-- CPU-controlled execution
-- operator overloading for syntax
-- inheritance for type behavior
-
-POLYMORPHISM / DESIGN REFLECTION
---------------------------------
-
-After completing the system, an important realization was made:
-
-Inheritance was not strictly required for the variable system.
-
-Instead of using an inheritance hierarchy for Edible, Calories, and Foods,
-the same behavior could have been achieved using:
-
-- a single base Variable class
-- multiple overloaded constructors
-- different constructor signatures for each input type
-
-Example idea:
-Variable(int)
-Variable(const char*)
-Variable(bool)
-
-This approach could have:
-- simplified the overall architecture
-- reduced complexity from inheritance chains
-- removed the need for virtual functions
-- made type handling more direct at construction time
-
-However, the current implementation still uses inheritance to define type behavior.
-
-So while inheritance worked, it introduced additional complexity that could have been avoided with a constructor-overloading-based design. however this way creates a god varibels capable of storing all types of data and isnt defined like
-
-Calories myCal = 10;
-
-and isntead can just be
-
-Varible myVar = 10;
-
-
-
-ADDITINAL PROBLEMS(when i stored data in my varibels...)
---------------------------------------------
-
-In (UE5) i learned that childresn construcotrs get called after parents constructors so i couldn't just set the data and data type beacuse it would call the parent constructror first load into memory then take in the user enterd values.
-
-EX: Calroes myCal = 10;
-1) Variable created
-2) Varibles constructor called
-3) in vairbels contructor sets default values and send to memory
-4) Calories created
-5) Calories constructor called with user data
-6) Claories data gets updated however memory isnt stored anymore
-
-To fix this, a virtual function system was used.
-
-Each child class overrides a virtual function that:
-
-- runs after construction begins
-- correctly resolves the child type
-- sets the proper memory address into the CPU accumulator
-
-This ensures:
-- the correct derived type is used
-- the CPU receives the correct address (child, not parent)
-- memory is properly initialized after full object construction
-
-
-
-
-Below is a AI polish version of my feature list if you want to look at my draft look on and old verison on my git Maxsumilllian
-
-FEATURES
-========================================================================================================================
-
-1. CPU-BASED EXPRESSION EVALUATION (TEMP VARIABLES)
----------------------------------------------------
-
-The CPU supports chained expressions such as:
-
-Variable var = var1 + var2 + var3;
-
-To support this, operator+ returns a Variable instead of modifying operands.
-
-IMPORTANT DESIGN RULE:
-- Original variables (var1, var2, var3) are NOT modified during operations.
-- This prevents unintended mutation during chained expressions.
-
-TEMP VARIABLE SYSTEM:
-- The CPU generates temporary values for intermediate results.
-- These temporary values are stored in a reserved memory slot (slot 0).
-- Slot 0 is not part of normal user-accessible memory.
-
-Example:
-var1 + var2 + var3
--> CPU creates temporary chain result in slot 0
--> Final result is returned as a Variable
-
-
-2. CHAINED CONSTRUCTION SYSTEM
---------------------------------
-
-Expressions like:
-
-Variable var = var1 + var2 + var3;
-
-are resolved through a constructor system.
-
-The CPU produces a temporary object of type:
-FatherVariable
-
-This object is then passed into:
-
-Variable(FatherVariable var);
-
-This allows:
-- chained expression evaluation
-- safe temporary result handling
-- proper conversion into child types
-
-This mechanism enables full expression chaining without breaking variable state.
-
-
-3. CPU PARSER / DECODER SYSTEM
---------------------------------
-
-The CPU includes a parser/decoder system that processes instruction strings.
-
-- Inputs are split using ":" as a delimiter
-- Parsed segments are interpreted as CPU instructions
-- Enables structured execution of complex expressions
-
-
-4. MULTI-TYPE OPERATION SUPPORT
---------------------------------
-
-The CPU supports automatic type-aware operations:
-
-INTEGER (Calories):
-- Performs arithmetic addition, subtraction, multiplication, etc.
-
-STRING (Foods):
-- Performs concatenation using + operator
-
-BOOLEAN (Edible):
-- Performs logical comparisons and boolean operations
-
-The CPU determines behavior dynamically based on operand types.
-
-
-5. OBJECT-BASED VARIABLE SYSTEM
---------------------------------
-
-All variables are implemented as C++ classes.
-
-This allows:
-- operator overloading
-- CPU-controlled behavior
-- memory tracking per variable
-- consistent syntax with traditional programming languages
-
-
-6. INHERITANCE + CONSTRUCTOR BEHAVIOR
---------------------------------------
-
-Due to C++ constructor rules:
-
-- Parent constructors are called before child constructors
-
-To properly initialize runtime behavior:
-- virtual functions are used inside constructors
-- this allows correct datatype configuration after inheritance setup
-
-This ensures that derived types correctly register their CPU behavior.
-
-
-7. COMPARISON SYSTEM
+9. KNOWN LIMITATIONS
 --------------------
 
-Comparison operators have been implemented for all three data types:
-
-- Calories (int comparisons)
-- Foods (string comparisons)
-- Edible (boolean comparisons)
-
-Supported operators:
-==   !=   >   >=   <   <=
-
-All comparisons are processed through CPU-controlled evaluation logic.
+- No garbage collection
+- Limited type system (int/string/bool only)
+- CPU holds most complexity
+- Header/function separation issues during development
+- Debugging required careful memory tracking
 
 
-8. MEMORY MANAGEMENT MODEL (TEMP SYSTEM)
-----------------------------------------
+10. FINAL SUMMARY
+-----------------
 
-- Temporary results are stored in reserved CPU memory (slot 0)
-- No garbage collection is currently implemented
-- Temporary values are overwritten per expression evaluation
+StomachLang is a CPU-driven virtual language system where:
 
-This system allows safe chained expression evaluation without modifying source variables.
+- variables are memory addresses
+- CPU handles all computation
+- inheritance defines type behavior
+- operator overloading provides syntax layer
+- temporary memory enables expression chaining
+
+It behaves like a simplified interpreter / virtual machine built in C++.
 
 
+11. AI USAGE / DEVELOPMENT SUPPORT
+-----------------------------------
+
+During development, AI tools were used as a supporting resource in the following ways:
+
+1. STRUCTURE SUPPORT
+--------------------
+AI was initially used to help define and organize the overall structure of the project.
+
+This included:
+- breaking the system into CPU / Memory / Language layers
+- helping identify major components of the architecture
+- clarifying how a virtual language system could be structured in C++
+
+This was used as a planning aid, not as direct implementation.
+
+2. DEBUGGING ASSISTANCE
+-----------------------
+AI was heavily used during debugging to understand and resolve issues such as:
+
+- operator overloading compilation errors
+- header vs cpp function definition issues
+- template-related compilation constraints
+- inheritance and constructor initialization order problems
+- memory/address handling mistakes
+- CPU accumulator state bugs
+
+3. COMMON BUG TYPES ENCOUNTERED
+-------------------------------
+
+The most frequent issues were:
+
+- function declaration vs definition mismatches (header file issues)
+- template instantiation errors
+- incorrect type resolution in overloaded operators
+- memory not updating correctly after CPU operations
+- constructor order causing incorrect initialization state
+- runtime type mismatches between CPU and variable system
+
+4. HOW AI WAS USED (IMPORTANT CLARIFICATION)
+-------------------------------------------
+AI was NOT used to generate the final system.
+
+Instead, it was used to:
+- explain compiler errors
+- suggest debugging directions
+- clarify C++ language behavior (especially templates and inheritance)
+- help reason through complex architecture decisions
+
+All core system design decisions and implementation logic were developed manually through iteration and testing.
+
+========================================================================================================================
+END OF PROJECT DOCUMENTATION
 ========================================================================================================================
