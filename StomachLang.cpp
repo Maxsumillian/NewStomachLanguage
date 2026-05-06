@@ -149,134 +149,84 @@ bool operator||(bool y, Edible x) {
 // Calorie comparisons
 // =========================
 
+int getCalorieValue(Calorie& c) {
+    StomachLang::cpu.add(c.getAddress());
+
+    if (StomachLang::cpu.getAccumulatorDataType() != "INT") {
+        std::cout << "Type error in Calorie access\n";// added after my boolean problem :p
+        // the story goes
+        // bool num1 = 100;
+        // int num2 = 99;
+        // if(num1 > num2)
+        // COMPILES:
+        // Runtime Error:
+        // Headache...
+        return 0;
+    }
+
+    return std::stoi(StomachLang::cpu.getAccumulatorDataValue());
+}
 bool operator>(Calorie x, Calorie y) {
-    StomachLang::cpu.add(x.getAddress());
-    int xVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    StomachLang::cpu.add(y.getAddress());
-    int yVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    return xVal > yVal;
+    return getCalorieValue(x) > getCalorieValue(y);
 }
 
 bool operator>=(Calorie x, Calorie y) {
-    StomachLang::cpu.add(x.getAddress());
-    int xVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    StomachLang::cpu.add(y.getAddress());
-    int yVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    return xVal >= yVal;
+    return getCalorieValue(x) >= getCalorieValue(y);
 }
 
 bool operator==(Calorie x, Calorie y) {
-    StomachLang::cpu.add(x.getAddress());
-    int xVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    StomachLang::cpu.add(y.getAddress());
-    int yVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    return xVal == yVal;
+    return getCalorieValue(x) == getCalorieValue(y);
 }
 
 bool operator<=(Calorie x, Calorie y) {
-    StomachLang::cpu.add(x.getAddress());
-    int xVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    StomachLang::cpu.add(y.getAddress());
-    int yVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    return xVal <= yVal;
+    return getCalorieValue(x) <= getCalorieValue(y);
 }
 
 bool operator<(Calorie x, Calorie y) {
-     StomachLang::cpu.add(x.getAddress());
-
-    if (StomachLang::cpu.getAccumulatorDataType() != "INT") {
-        std::cout << "Type error in < comparison (x)\n";
-        return false;
-    }
-
-    int xVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    StomachLang::cpu.add(y.getAddress());
-
-    if (StomachLang::cpu.getAccumulatorDataType() != "INT") {
-        std::cout << "Type error in < comparison (y)\n";
-        return false;
-    }
-
-    int yVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    return xVal < yVal;
+    return getCalorieValue(x) < getCalorieValue(y);
 }
 
 bool operator!=(Calorie x, Calorie y) {
-    StomachLang::cpu.add(x.getAddress());
-    int xVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    StomachLang::cpu.add(y.getAddress());
-    int yVal = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-
-    return xVal != yVal;
+    return getCalorieValue(x) != getCalorieValue(y);
 }
-
 
 // =========================
 // Foods comparisons
 // ========================
 
+//added a central helper function templating this code was not worth it because order implications mess it up meaning i woudld have to make 3 template funcitons
+std::string getFoodValue(Foods& f) {
+    StomachLang::cpu.add(f.getAddress());
+    return StomachLang::cpu.getAccumulatorDataValue();
+}
+
 bool operator==(Foods x, Foods y) {
-    StomachLang::cpu.add(x.getAddress());
-    std::string xVal = StomachLang::cpu.getAccumulatorDataValue();
-
-    StomachLang::cpu.add(y.getAddress());
-    std::string yVal = StomachLang::cpu.getAccumulatorDataValue();
-
-    return xVal == yVal;
+    return getFoodValue(x) == getFoodValue(y);
 }
 
 bool operator==(Foods x, const char* y) {
-    StomachLang::cpu.add(x.getAddress());
-    std::string xVal = StomachLang::cpu.getAccumulatorDataValue();
-
-    return xVal == std::string(y);
+    return getFoodValue(x) == std::string(y);
 }
 
 bool operator==(const char* y, Foods x) {
-    StomachLang::cpu.add(x.getAddress());
-    std::string xVal = StomachLang::cpu.getAccumulatorDataValue();
-
-    return std::string(y) == xVal;
+    return std::string(y) == getFoodValue(x);
 }
 
 bool operator!=(Foods x, Foods y) {
-    StomachLang::cpu.add(x.getAddress());
-    std::string xVal = StomachLang::cpu.getAccumulatorDataValue();
-
-    StomachLang::cpu.add(y.getAddress());
-    std::string yVal = StomachLang::cpu.getAccumulatorDataValue();
-
-    return xVal != yVal;
+    return getFoodValue(x) != getFoodValue(y);
 }
 
 bool operator!=(Foods x, const char* y) {
-    StomachLang::cpu.add(x.getAddress());
-    std::string xVal = StomachLang::cpu.getAccumulatorDataValue();
-
-    return xVal != std::string(y);
+    return getFoodValue(x) != std::string(y);
 }
 
 bool operator!=(const char* y, Foods x) {
-    StomachLang::cpu.add(x.getAddress());
-    std::string xVal = StomachLang::cpu.getAccumulatorDataValue();
-
-    return std::string(y) != xVal;
+    return std::string(y) != getFoodValue(x);
 }
-
 // =========================
 // int + Variable ops
-// chat gpt helped me make a Template Helper for these overloaded funcions
+// chat-GPT helped me make a Template Helper for these overloaded funcions
+// beacuse this is the specific case of ints plus Varibles its consistent and a template is useable here
 // =========================
 
 Variable operator+(int b, const Variable& a) {
@@ -303,25 +253,3 @@ Variable operator%(int b, const Variable& a) {
     StomachLang::cpu.applyIntOp(b,a.address,[](int x, int y) { return x % y; });
     return Variable(StomachLang::cpu.getAccumulatorDataType(), StomachLang::cpu.getAccumulatorDataValue());
 }
-
-
-// template<typename Op>
-// Variable applyIntOp(int b, const Variable& a, Op operation) {
-//     StomachLang::cpu.add(a.address);
-//
-//     if (StomachLang::cpu.getAccumulatorDataType() == "INT") {
-//         int acc = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-//         int result = operation(acc, b);
-//
-//         return Variable(
-//             "INT",
-//             std::to_string(result)
-//         );
-//     }
-//
-//     std::cout << "\n\033[31mCannot operate on "
-//               << StomachLang::cpu.getAccumulatorDataType()
-//               << " and INT\033[0m";
-//
-//     return Variable();
-// }
