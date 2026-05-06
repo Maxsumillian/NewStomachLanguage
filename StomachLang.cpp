@@ -207,28 +207,38 @@ std::string getFoodValue(Foods& f) {
 }
 
 bool operator==(Foods x, Foods y) {
-    return getFoodValue(x) == getFoodValue(y);
+    StomachLang::cpu.compare(x.getAddress(),y.getAddress(), "==");
+    return StomachLang::cpu.getAccumulatorDataValue() == "true";
 }
 
 bool operator==(Foods x, const char* y) {
-    return getFoodValue(x) == std::string(y);
+    StomachLang::cpu.compare(x.getAddress(),y, "==");
+    return StomachLang::cpu.getAccumulatorDataValue() == "true";
 }
 
 bool operator==(const char* y, Foods x) {
-    return std::string(y) == getFoodValue(x);
+    StomachLang::cpu.compare(x.getAddress(),y, "==");
+    return StomachLang::cpu.getAccumulatorDataValue() == "true";
+
 }
 
 bool operator!=(Foods x, Foods y) {
-    return getFoodValue(x) != getFoodValue(y);
+    StomachLang::cpu.compare(x.getAddress(),y.getAddress(), "!=");
+    return StomachLang::cpu.getAccumulatorDataValue() == "true";
 }
 
 bool operator!=(Foods x, const char* y) {
-    return getFoodValue(x) != std::string(y);
+
+    StomachLang::cpu.compare(x.getAddress(),y, "!=");
+    return StomachLang::cpu.getAccumulatorDataValue() == "true";
 }
 
 bool operator!=(const char* y, Foods x) {
-    return std::string(y) != getFoodValue(x);
+    StomachLang::cpu.compare(x.getAddress(),y, "!=");
+    return StomachLang::cpu.getAccumulatorDataValue() == "true";
 }
+
+
 // =========================
 // int + Variable ops
 // chat-GPT helped me make a Template Helper for these overloaded funcions

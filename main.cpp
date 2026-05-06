@@ -31,7 +31,6 @@ int main() {
         Calorie choiceOne = 1;
         Calorie choiceFive = 5;
 
-
         // if (choice < 1 || choice > 5)
         if (choice < choiceOne || choice > choiceFive){//example of comparison operators using my INT
             StomachLang::poop() << "\nInvalid option";

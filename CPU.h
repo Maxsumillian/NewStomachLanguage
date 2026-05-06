@@ -48,6 +48,8 @@ public:
     void compare(int address, int address2, std::string op);
     void compare(bool b, int address2, std::string op);
     void compare(int address, bool b, std::string op);
+    void compare(std::string b, int address2, std::string op);
+    void compare(int address, std::string b, std::string op);
 
 
     // =========================

@@ -206,6 +206,31 @@ void CPU::compare(int address, bool b, std::string op) {
 }
 
 
+void CPU::compare(std::string b, int address2, std::string op) {
+    Data a = memory->read(address2);
+    if (a.type == "String") {
+        if (op == "==") {
+            accumulator.value = (a.value == b ? "true" : "false");
+        }
+        if (op == "!=") {
+            accumulator.value = (a.value != b ? "true" : "false");
+        }
+    }
+
+}
+void CPU::compare(int address, std::string b, std::string op) {
+    Data a = memory->read(address);
+    if (a.type == "String") {
+        if (op == "==") {
+            accumulator.value = (a.value == b ? "true" : "false");
+        }
+        if (op == "!=") {
+            accumulator.value = (a.value != b ? "true" : "false");
+        }
+    }
+}
+
+
 // =========================
 // Debug
 // =========================
