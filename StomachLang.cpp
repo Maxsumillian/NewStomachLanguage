@@ -96,6 +96,9 @@ std::istream& operator>>(std::istream& in, Edible& edible) {
 }
 
 
+
+
+
 // =========================
 // Edible comparisons
 // =========================
@@ -269,4 +272,98 @@ bool operator!=(const char* y, Foods x) {
     std::string xVal = StomachLang::cpu.getAccumulatorDataValue();
 
     return std::string(y) != xVal;
+}
+
+// =========================
+// int + Variable ops
+// =========================
+
+Variable operator+(int b, const Variable& a) {
+    StomachLang::cpu.add(a.address);
+
+    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
+        return Variable(
+            StomachLang::cpu.getAccumulatorDataType(),
+            std::to_string(
+                std::stoi(StomachLang::cpu.getAccumulatorDataValue()) + b
+            )
+        );
+
+    std::cout << "\n\033[31mCannot add "
+              << StomachLang::cpu.getAccumulatorDataType()
+              << " and INT\033[0m";
+
+    return Variable();
+}
+
+Variable operator-(int b, const Variable& a) {
+    StomachLang::cpu.add(a.address);
+
+    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
+        return Variable(
+            StomachLang::cpu.getAccumulatorDataType(),
+            std::to_string(
+                std::stoi(StomachLang::cpu.getAccumulatorDataValue()) - b
+            )
+        );
+
+    std::cout << "\n\033[31mCannot add "
+              << StomachLang::cpu.getAccumulatorDataType()
+              << " and INT\033[0m";
+
+    return Variable();
+}
+
+Variable operator*(int b, const Variable& a) {
+    StomachLang::cpu.add(a.address);
+
+    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
+        return Variable(
+            StomachLang::cpu.getAccumulatorDataType(),
+            std::to_string(
+                std::stoi(StomachLang::cpu.getAccumulatorDataValue()) * b
+            )
+        );
+
+    std::cout << "\n\033[31mCannot add "
+              << StomachLang::cpu.getAccumulatorDataType()
+              << " and INT\033[0m";
+
+    return Variable();
+}
+
+Variable operator/(int b, const Variable& a) {
+    StomachLang::cpu.add(a.address);
+
+    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
+        return Variable(
+            StomachLang::cpu.getAccumulatorDataType(),
+            std::to_string(
+                std::stoi(StomachLang::cpu.getAccumulatorDataValue()) / b
+            )
+        );
+
+    std::cout << "\n\033[31mCannot add "
+              << StomachLang::cpu.getAccumulatorDataType()
+              << " and INT\033[0m";
+
+    return Variable();
+}
+
+Variable operator%(int b, const Variable& a) {
+    StomachLang::cpu.add(a.address);
+
+    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
+        return Variable(
+            StomachLang::cpu.getAccumulatorDataType(),
+            std::to_string(
+                std::stoi(StomachLang::cpu.getAccumulatorDataValue()) % b
+            )
+        );
+
+    std::cout << "\n\033[31mCannot add "
+              << StomachLang::cpu.getAccumulatorDataType()
+              << " and INT\033[0m";
+
+    return Variable();
 }

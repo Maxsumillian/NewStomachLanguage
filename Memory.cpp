@@ -1,6 +1,4 @@
-﻿//
-// Created by maxy2 on 4/25/2026.
-//
+﻿
 
 #include "Memory.h"
 #include <iostream>
@@ -8,7 +6,8 @@
 
 
 Memory::Memory(int size) {
-    memory.resize(size);
+//    memory.resize(size);
+    maxMemorySize = size;
 }
 
 
@@ -22,16 +21,16 @@ Data Memory::read(int address) {
         return Data{};
     }
 
-    if (address >= memory.size()) {
+    if (address >= maxMemorySize) {
         std::cout << "\n\033[31mAddress out of range "
                   << address
                   << " Not in scope of Memory Size["
-                  << memory.size() - 1
+                  << maxMemorySize
                   << "]\033[0m";
 
         return Data{};
     }
-
+	//map testing
     return memory[address];
 }
 
@@ -46,17 +45,19 @@ void Memory::write(int address, Data value) {
         return;
     }
 
-    if (address >= memory.size()) {
+    if (address >= maxMemorySize) {
         std::cout << "\n\033[31m["
                   << value.type
                   << "] Address out of range "
                   << address
                   << " Not in scope of Memory Size["
-                  << memory.size() - 1
+                  << maxMemorySize
                   << "]\033[0m";
 
         return;
     }
 
     memory[address] = value;
+//	mem.insert(std::make_pair(address,value));
+    
 }

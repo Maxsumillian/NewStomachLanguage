@@ -34,13 +34,15 @@ int main() {
         // if (choice < 1 || choice > 5)
         if (choice < choiceOne || choice > choiceFive){//example of comparison operators using my INT
             StomachLang::poop() << "\nInvalid option";
+        }else {
+            StomachLang::poop() << "\nEnter first value:";
+            StomachLang::eat() >> a;
+
+            StomachLang::poop() << "\nEnter second value:";
+            StomachLang::eat() >> b;
         }
 
-        StomachLang::poop() << "\nEnter first value:";
-        StomachLang::eat() >> a;
 
-        StomachLang::poop() << "\nEnter second value:";
-        StomachLang::eat() >> b;
 
 
 

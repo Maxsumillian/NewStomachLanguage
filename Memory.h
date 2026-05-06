@@ -1,19 +1,18 @@
-﻿//
-// Created by maxy2 on 4/25/2026.
-//
+﻿
 
 #ifndef NEWSTOMACHLANGAUGE_MEMORY_H
 #define NEWSTOMACHLANGAUGE_MEMORY_H
-
-#include <vector>
 #include <string>
 #include "Data.h"
 
-// use Vector first then upgrade to map
+#include <map>
+
+
 
 class Memory {
 private:
-    std::vector<Data> memory;
+    std::map<int,Data> memory;
+    int maxMemorySize;
 
 public:
     Memory(int size);
@@ -22,4 +21,4 @@ public:
     void write(int address, Data value);
 };
 
-#endif //NEWSTOMACHLANGAUGE_MEMORY_H
+#endif
