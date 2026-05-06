@@ -77,29 +77,29 @@ void CPU::add(int address, int address2) {
 // =========================
 // Arithmetic operations
 // (templated system below)
-// CHAT GPT ASSISTED WITH THIS TEMPLATE
+// does not include add beacuse add has a special case with stings and ints
 // =========================
 
-void CPU::sub(int a, int b) {
-    operation(a, b, [](int x, int y) {
+void CPU::sub(int address1, int address2) {
+    operation(address1, address2, [](int x, int y) {
         return x - y;
     },"subtract");
 }
 
-void CPU::multiply(int a, int b) {
-    operation(a, b, [](int x, int y) {
+void CPU::multiply(int address1, int address2) {
+    operation(address1, address2, [](int x, int y) {
         return x * y;
     },"multiply");
 }
 
-void CPU::divide(int a, int b) {
-    operation(a, b, [](int x, int y) {
+void CPU::divide(int address1, int address2) {
+    operation(address1, address2, [](int x, int y) {
         return x / y;
     },"divide");
 }
 
-void CPU::modulo(int a, int b) {
-    operation(a, b, [](int x, int y)  {
+void CPU::modulo(int address1, int address2) {
+    operation(address1, address2, [](int x, int y)  {
         return x % y;
     },"modulo");
 }
@@ -130,29 +130,6 @@ void CPU::operation(int address, int address2, T op, std::string opName) {
     }
 
 }
-
-// =========================
-// General operations involving Primal datatypes
-// =========================
-
-// template<typename Op>
-// void CPU::applyIntOp(int b, int address, Op operation) {
-//     add(address);
-//
-//     if (accumulator.type == "INT") {
-//         int acc = std::stoi(accumulator.value);
-//         int result = operation(acc, b);
-//
-//         accumulator = Data{
-//         "INT",
-//         std::to_string(result)
-//         };
-//     }else {
-//         std::cout << "\n\033[31mCannot operate on "
-//               << StomachLang::cpu.getAccumulatorDataType()
-//               << " and INT\033[0m";
-//     }
-// }
 
 // =========================
 // Debug
