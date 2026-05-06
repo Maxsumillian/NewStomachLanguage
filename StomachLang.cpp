@@ -149,45 +149,51 @@ bool operator||(bool y, Edible x) {
 // Calorie comparisons
 // =========================
 
-int getCalorieValue(Calorie& c) {
-    StomachLang::cpu.add(c.getAddress());
-
-    if (StomachLang::cpu.getAccumulatorDataType() != "INT") {
-        std::cout << "Type error in Calorie access\n";// added after my boolean problem :p
-        // the story goes
-        // bool num1 = 100;
-        // int num2 = 99;
-        // if(num1 > num2)
-        // COMPILES:
-        // Runtime Error:
-        // Headache...
-        return 0;
-    }
-
-    return std::stoi(StomachLang::cpu.getAccumulatorDataValue());
-}
+// int getCalorieValue(Calorie& c) {
+//     StomachLang::cpu.add(c.getAddress());
+//
+//     if (StomachLang::cpu.getAccumulatorDataType() != "INT") {
+//         std::cout << "Type error in Calorie access\n";// added after my boolean problem :p
+//         // the story goes
+//         // bool num1 = 100;
+//         // int num2 = 99;
+//         // if(num1 > num2)
+//         // COMPILES:
+//         // Runtime Error:
+//         // Headache...
+//         return 0;
+//     }
+//
+//     return std::stoi(StomachLang::cpu.getAccumulatorDataValue());
+// }
 bool operator>(Calorie x, Calorie y) {
-    return getCalorieValue(x) > getCalorieValue(y);
+    StomachLang::cpu.compare(x.getAddress(),y.getAddress(), ">");
+    return StomachLang::cpu.getAccumulatorDataValue() == "true";
 }
 
 bool operator>=(Calorie x, Calorie y) {
-    return getCalorieValue(x) >= getCalorieValue(y);
+    StomachLang::cpu.compare(x.getAddress(),y.getAddress(), ">=");
+    return StomachLang::cpu.getAccumulatorDataValue() == "true";
 }
 
 bool operator==(Calorie x, Calorie y) {
-    return getCalorieValue(x) == getCalorieValue(y);
+    StomachLang::cpu.compare(x.getAddress(),y.getAddress(), "==");
+    return StomachLang::cpu.getAccumulatorDataValue() == "true";
 }
 
 bool operator<=(Calorie x, Calorie y) {
-    return getCalorieValue(x) <= getCalorieValue(y);
+    StomachLang::cpu.compare(x.getAddress(),y.getAddress(), "<=");
+    return StomachLang::cpu.getAccumulatorDataValue() == "true";
 }
 
 bool operator<(Calorie x, Calorie y) {
-    return getCalorieValue(x) < getCalorieValue(y);
+    StomachLang::cpu.compare(x.getAddress(),y.getAddress(), "<");
+    return StomachLang::cpu.getAccumulatorDataValue() == "true";
 }
 
 bool operator!=(Calorie x, Calorie y) {
-    return getCalorieValue(x) != getCalorieValue(y);
+    StomachLang::cpu.compare(x.getAddress(),y.getAddress(), "!=");
+    return StomachLang::cpu.getAccumulatorDataValue() == "true";
 }
 
 // =========================
