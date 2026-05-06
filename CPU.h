@@ -49,9 +49,9 @@ public:
 
     // =========================
     // Generic operation system
+    // mixing primal data with my custom EX: int + Claorie;
     // =========================
 
-    template<typename Op>
     // When debugging with ChatGPT I found that this has to be in the header.
     // It says templates aren’t fully defined functions, so it breaks if the compiler
     // can’t see the full definition when it instantiates them.
@@ -59,6 +59,7 @@ public:
     // This is not about calling it outside a function—templates must be fully visible
     // wherever they are used so the compiler can generate the correct version.
     // Other non-template functions work fine in .cpp files because they are fully compiled once.
+    template<typename Op>
     void applyIntOp(int b, int address, Op operation) {
             add(address);
 
