@@ -46,6 +46,8 @@ public:
     void divide(int address, int address2);
     void modulo(int address, int address2);
 
+    template<typename T, typename V>
+    void compare(T first, V second, std::string comparisonOP);
     // =========================
     // Generic operation system
     // =========================
