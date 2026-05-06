@@ -13,6 +13,9 @@ class Variable {
     friend Variable operator/(int b, const Variable& a);
     friend Variable operator%(int b, const Variable& a);
 
+    template<typename Op>
+    friend Variable applyIntOp(int b, const Variable& a, Op operation);
+
 protected:
     int address;
     inline static int maxAddress = 0; // NOTE: update this for Dev-C++

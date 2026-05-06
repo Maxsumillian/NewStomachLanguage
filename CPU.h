@@ -9,7 +9,7 @@
 #include <string>
 #include "Variable.h"
 #include "Data.h"
-
+#include <iostream>
 
 class CPU {
 private:
@@ -46,12 +46,40 @@ public:
     void divide(int address, int address2);
     void modulo(int address, int address2);
 
-    template<typename T, typename V>
-    void compare(T first, V second, std::string comparisonOP);
+
     // =========================
     // Generic operation system
     // =========================
 
+    template<typename Op>
+    // When debugging with ChatGPT I found that this has to be in the header.
+    // It says templates aren’t fully defined functions, so it breaks if the compiler
+    // can’t see the full definition when it instantiates them.
+    //
+    // This is not about calling it outside a function—templates must be fully visible
+    // wherever they are used so the compiler can generate the correct version.
+    // Other non-template functions work fine in .cpp files because they are fully compiled once.
+    void applyIntOp(int b, int address, Op operation) {
+            add(address);
+
+            if (accumulator.type == "INT") {
+                int acc = std::stoi(accumulator.value);
+                int result = operation(acc, b);
+
+                accumulator = Data{
+                    "INT",
+                    std::to_string(result)
+                    };
+            }else {
+                std::cout << "\n\033[31mCannot operate on "
+                      << accumulator.type
+                      << " and INT\033[0m";
+            }
+    }
+
+    // Note: This is another template function But it's declared in the header and defined in the .cpp,
+    // and it works there. The difference is that it is not being instantiated with a lambda
+    // type like this one, so it doesn’t trigger the same compile-time generation requirement.
     template<typename T>
     void operation(int address, int address2, T op, std::string opName);
 

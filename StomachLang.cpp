@@ -276,94 +276,52 @@ bool operator!=(const char* y, Foods x) {
 
 // =========================
 // int + Variable ops
+// chat gpt helped me make a Template Helper for these overloaded funcions
 // =========================
 
 Variable operator+(int b, const Variable& a) {
-    StomachLang::cpu.add(a.address);
-
-    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
-        return Variable(
-            StomachLang::cpu.getAccumulatorDataType(),
-            std::to_string(
-                std::stoi(StomachLang::cpu.getAccumulatorDataValue()) + b
-            )
-        );
-
-    std::cout << "\n\033[31mCannot add "
-              << StomachLang::cpu.getAccumulatorDataType()
-              << " and INT\033[0m";
-
-    return Variable();
+    StomachLang::cpu.applyIntOp(b,a.address,[](int x, int y) { return x + y; });
+    return Variable(StomachLang::cpu.getAccumulatorDataType(), StomachLang::cpu.getAccumulatorDataValue());
 }
 
 Variable operator-(int b, const Variable& a) {
-    StomachLang::cpu.add(a.address);
-
-    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
-        return Variable(
-            StomachLang::cpu.getAccumulatorDataType(),
-            std::to_string(
-                std::stoi(StomachLang::cpu.getAccumulatorDataValue()) - b
-            )
-        );
-
-    std::cout << "\n\033[31mCannot add "
-              << StomachLang::cpu.getAccumulatorDataType()
-              << " and INT\033[0m";
-
-    return Variable();
+    StomachLang::cpu.applyIntOp(b,a.address,[](int x, int y) { return x - y; });
+    return Variable(StomachLang::cpu.getAccumulatorDataType(), StomachLang::cpu.getAccumulatorDataValue());
 }
 
 Variable operator*(int b, const Variable& a) {
-    StomachLang::cpu.add(a.address);
-
-    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
-        return Variable(
-            StomachLang::cpu.getAccumulatorDataType(),
-            std::to_string(
-                std::stoi(StomachLang::cpu.getAccumulatorDataValue()) * b
-            )
-        );
-
-    std::cout << "\n\033[31mCannot add "
-              << StomachLang::cpu.getAccumulatorDataType()
-              << " and INT\033[0m";
-
-    return Variable();
+    StomachLang::cpu.applyIntOp(b,a.address,[](int x, int y) { return x * y; });
+    return Variable(StomachLang::cpu.getAccumulatorDataType(), StomachLang::cpu.getAccumulatorDataValue());
 }
 
 Variable operator/(int b, const Variable& a) {
-    StomachLang::cpu.add(a.address);
-
-    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
-        return Variable(
-            StomachLang::cpu.getAccumulatorDataType(),
-            std::to_string(
-                std::stoi(StomachLang::cpu.getAccumulatorDataValue()) / b
-            )
-        );
-
-    std::cout << "\n\033[31mCannot add "
-              << StomachLang::cpu.getAccumulatorDataType()
-              << " and INT\033[0m";
-
-    return Variable();
+    StomachLang::cpu.applyIntOp(b,a.address,[](int x, int y) { return x / y; });
+    return Variable(StomachLang::cpu.getAccumulatorDataType(), StomachLang::cpu.getAccumulatorDataValue());
 }
 
 Variable operator%(int b, const Variable& a) {
-    StomachLang::cpu.add(a.address);
-
-    if (StomachLang::cpu.getAccumulatorDataType() == "INT")
-        return Variable(
-            StomachLang::cpu.getAccumulatorDataType(),
-            std::to_string(
-                std::stoi(StomachLang::cpu.getAccumulatorDataValue()) % b
-            )
-        );
-
-    std::cout << "\n\033[31mCannot add "
-              << StomachLang::cpu.getAccumulatorDataType()
-              << " and INT\033[0m";
-
-    return Variable();
+    StomachLang::cpu.applyIntOp(b,a.address,[](int x, int y) { return x % y; });
+    return Variable(StomachLang::cpu.getAccumulatorDataType(), StomachLang::cpu.getAccumulatorDataValue());
 }
+
+
+// template<typename Op>
+// Variable applyIntOp(int b, const Variable& a, Op operation) {
+//     StomachLang::cpu.add(a.address);
+//
+//     if (StomachLang::cpu.getAccumulatorDataType() == "INT") {
+//         int acc = std::stoi(StomachLang::cpu.getAccumulatorDataValue());
+//         int result = operation(acc, b);
+//
+//         return Variable(
+//             "INT",
+//             std::to_string(result)
+//         );
+//     }
+//
+//     std::cout << "\n\033[31mCannot operate on "
+//               << StomachLang::cpu.getAccumulatorDataType()
+//               << " and INT\033[0m";
+//
+//     return Variable();
+// }

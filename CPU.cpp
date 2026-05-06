@@ -131,6 +131,28 @@ void CPU::operation(int address, int address2, T op, std::string opName) {
 
 }
 
+// =========================
+// General operations involving Primal datatypes
+// =========================
+
+// template<typename Op>
+// void CPU::applyIntOp(int b, int address, Op operation) {
+//     add(address);
+//
+//     if (accumulator.type == "INT") {
+//         int acc = std::stoi(accumulator.value);
+//         int result = operation(acc, b);
+//
+//         accumulator = Data{
+//         "INT",
+//         std::to_string(result)
+//         };
+//     }else {
+//         std::cout << "\n\033[31mCannot operate on "
+//               << StomachLang::cpu.getAccumulatorDataType()
+//               << " and INT\033[0m";
+//     }
+// }
 
 // =========================
 // Debug
