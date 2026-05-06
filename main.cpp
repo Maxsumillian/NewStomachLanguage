@@ -16,7 +16,7 @@ int main() {
         StomachLang::poop() << "\n2. Subtract";
         StomachLang::poop() << "\n3. Multiply";
         StomachLang::poop() << "\n4. Divide";
-        StomachLang::poop() << "\n5. Exit";
+        StomachLang::poop() << "\n5+ Exit";
         StomachLang::poop() << "\nChoose option:";
 
         StomachLang::eat() >> choice;//Example of My cin "StomachLang::eat() >> [varible]"
@@ -50,7 +50,7 @@ int main() {
         if (choice == choiceOne)
         {
             result = a + b; // example of overloaded= and overloaded+ as well as chaining
-            StomachLang::poop() << a <<" + " << b <<" = " << result;// example of chaining in my custom cout
+            StomachLang::poop() << a <<" + " << b <<" = " << result;// example of chaining strings in my cout
         }
         else if (choice == 2)
         {
