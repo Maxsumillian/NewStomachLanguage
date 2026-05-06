@@ -45,6 +45,9 @@ public:
     void multiply(int address, int address2);
     void divide(int address, int address2);
     void modulo(int address, int address2);
+    void compare(int address, int address2, std::string op);
+    void compare(bool b, int address2, std::string op);
+    void compare(int address, bool b, std::string op);
 
 
     // =========================

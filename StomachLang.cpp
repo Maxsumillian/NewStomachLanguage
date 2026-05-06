@@ -104,43 +104,43 @@ std::istream& operator>>(std::istream& in, Edible& edible) {
 // =========================
 
 bool operator==(bool y, Edible x) {
-    StomachLang::cpu.add(x.getAddress());
-    return y == (StomachLang::cpu.getAccumulatorDataValue() == "true");
+    StomachLang::cpu.compare(x.getAddress(),y, "==");
+    return StomachLang::cpu.getAccumulatorDataValue() == "true";
 }
 
 bool operator!=(bool y, Edible x) {
-    StomachLang::cpu.add(x.getAddress());
-    return y != (StomachLang::cpu.getAccumulatorDataValue() == "true");
+    StomachLang::cpu.compare(x.getAddress(),y, "!=");
+    return StomachLang::cpu.getAccumulatorDataValue() == "true";
 }
 
 bool operator==(Edible x, bool y) {
-    StomachLang::cpu.add(x.getAddress());
-    return (StomachLang::cpu.getAccumulatorDataValue() == "true") == y;
+    StomachLang::cpu.compare(x.getAddress(),y, "==");
+    return StomachLang::cpu.getAccumulatorDataValue() == "true";
 }
 
 bool operator!=(Edible x, bool y) {
-    StomachLang::cpu.add(x.getAddress());
-    return (StomachLang::cpu.getAccumulatorDataValue() == "true") != y;
+    StomachLang::cpu.compare(x.getAddress(),y, "!=");
+    return StomachLang::cpu.getAccumulatorDataValue() == "true";
 }
 
 bool operator&&(Edible x, bool y) {
-    StomachLang::cpu.add(x.getAddress());
-    return (StomachLang::cpu.getAccumulatorDataValue() == "true") && y;
+    StomachLang::cpu.compare(x.getAddress(),y, "&&");
+    return StomachLang::cpu.getAccumulatorDataValue() == "true";
 }
 
 bool operator||(Edible x, bool y) {
-    StomachLang::cpu.add(x.getAddress());
-    return (StomachLang::cpu.getAccumulatorDataValue() == "true") || y;
+    StomachLang::cpu.compare(x.getAddress(),y, "||");
+    return StomachLang::cpu.getAccumulatorDataValue() == "true";
 }
 
 bool operator&&(bool y, Edible x) {
-    StomachLang::cpu.add(x.getAddress());
-    return (StomachLang::cpu.getAccumulatorDataValue() == "true") && y;
+    StomachLang::cpu.compare(x.getAddress(),y, "&&");
+    return StomachLang::cpu.getAccumulatorDataValue() == "true";
 }
 
 bool operator||(bool y, Edible x) {
-    StomachLang::cpu.add(x.getAddress());
-    return (StomachLang::cpu.getAccumulatorDataValue() == "true") || y;
+    StomachLang::cpu.compare(x.getAddress(),y, "||");
+    return StomachLang::cpu.getAccumulatorDataValue() == "true";
 }
 
 

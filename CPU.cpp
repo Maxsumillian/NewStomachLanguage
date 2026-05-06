@@ -130,6 +130,81 @@ void CPU::operation(int address, int address2, T op, std::string opName) {
     }
 
 }
+// =========================
+// Compare operator
+// =========================
+
+
+void CPU::compare(int address, int address2, std::string op){
+    Data a = memory->read(address);
+    Data b = memory->read(address2);
+    if (op == "==") {
+        accumulator.value = (a.value == b.value ? "true" : "false");
+    }
+    if (op == "!=") {
+        accumulator.value = (a.value != b.value ? "true" : "false");
+    }
+    if (a.type == "INT" && b.type == "INT") {
+        if (op == ">") {
+            accumulator.value = (a.value > b.value ? "true" : "false");
+        }
+        if (op == "<") {
+            accumulator.value = (a.value < b.value ? "true" : "false");
+        }
+        if (op == ">=") {
+            accumulator.value = (a.value >= b.value ? "true" : "false");
+        }
+        if (op == "<=") {
+            accumulator.value = (a.value <= b.value ? "true" : "false");
+        }
+    }
+    if (a.type == "Bool" && b.type == "Bool") {
+        if (op == "&&") {
+            accumulator.value = ((a.value == "true") && b.value == "true" ? "true" : "false");
+        }
+        if (op == "||") {
+            accumulator.value = ((a.value == "true" )|| b.value == "true" ? "true" : "false");
+        }
+    }
+}
+
+void CPU::compare(bool b, int address2, std::string op) {
+    Data a = memory->read(address2);
+    if (a.type == "Bool") {
+        if (op == "==") {
+            accumulator.value = ((a.value == (b ? "true" : "false")) ? "true" : "false");//nested ternary operators beacuse alot of value changes...
+        }// set accumularot value to either true or false if (value is the same value as b) (b is either true or false by string beacuse of ternary operator)
+        if (op == "!=") {
+            accumulator.value = ((a.value != (b ? "true" : "false")) ? "true" : "false");
+        }
+        if (op == "&&") {
+            accumulator.value = ((a.value == "true") && b ? "true" : "false");
+        }
+        if (op == "||") {
+            accumulator.value = ((a.value == "true") || b ? "true" : "false");
+        }
+    }
+
+}
+void CPU::compare(int address, bool b, std::string op) {
+    Data a = memory->read(address);
+    if (a.type == "Bool") {
+        if (op == "==") {
+            accumulator.value = (a.value == (b ? "true" : "false") ? "true" : "false");
+        }
+        if (op == "!=") {
+            accumulator.value = (a.value != (b ? "true" : "false") ? "true" : "false");
+        }
+        if (op == "&&") {
+            accumulator.value = (a.value == "true" && b ? "true" : "false");
+        }
+        if (op == "||") {
+            accumulator.value = (a.value == "true" || b ? "true" : "false");
+        }
+    }
+
+}
+
 
 // =========================
 // Debug
