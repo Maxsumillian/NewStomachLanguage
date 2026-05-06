@@ -1,5 +1,5 @@
-﻿#ifndef NEWSTOMACHLANGAUGE_VARIABLE_H
-#define NEWSTOMACHLANGAUGE_VARIABLE_H
+#ifndef VARIABLE_H
+#define VARIABLE_H
 
 #include <string>
 #include "Data.h"
@@ -18,7 +18,7 @@ class Variable {
 
 protected:
     int address;
-    inline static int maxAddress = 0; // NOTE: update this for Dev-C++
+    static int maxAddress; // NOTE: update this for Dev-C++
 
 public:
     Variable();
@@ -46,4 +46,4 @@ public:
     Variable operator+(const char* value);
 };
 
-#endif //NEWSTOMACHLANGAUGE_VARIABLE_H
+#endif 

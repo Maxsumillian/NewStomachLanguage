@@ -1,4 +1,4 @@
-﻿//
+//
 // Created by maxy2 on 4/25/2026.
 //
 
@@ -6,6 +6,8 @@
 #include "Variable.h"
 #include "StomachLang.h"
 #include "Data.h"
+
+int Variable::maxAddress = 0;
 
 
 // =========================
@@ -184,5 +186,3 @@ Variable Variable::operator+(const char* value) {
 
     return *this;
 }
-
-

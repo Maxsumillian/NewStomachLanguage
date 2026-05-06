@@ -1,9 +1,9 @@
-﻿//
+//
 // Created by maxy2 on 4/25/2026.
 //
 
-#ifndef NEWSTOMACHLANGAUGE_CALORIE_H
-#define NEWSTOMACHLANGAUGE_CALORIE_H
+#ifndef CALORIE_H
+#define CALORIE_H
 #include "Variable.h"
 
 
@@ -57,4 +57,4 @@ public:
 
 
 
-#endif //NEWSTOMACHLANGAUGE_CALORIE_H
+#endif 

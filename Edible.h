@@ -1,9 +1,9 @@
-﻿//
+//
 // Created by maxy2 on 4/25/2026.
 //
 
-#ifndef NEWSTOMACHLANGAUGE_EDIBLE_H
-#define NEWSTOMACHLANGAUGE_EDIBLE_H
+#ifndef EDIBLE_H
+#define EDIBLE_H
 #include "Variable.h"
 
 
@@ -30,4 +30,4 @@ public:
 
 
 
-#endif //NEWSTOMACHLANGAUGE_EDIBLE_H
+#endif

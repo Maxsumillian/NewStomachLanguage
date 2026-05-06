@@ -1,7 +1,7 @@
-﻿
 
-#ifndef NEWSTOMACHLANGAUGE_MEMORY_H
-#define NEWSTOMACHLANGAUGE_MEMORY_H
+
+#ifndef MEMORY_H
+#define MEMORY_H
 #include <string>
 #include "Data.h"
 

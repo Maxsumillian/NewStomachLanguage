@@ -1,9 +1,9 @@
-﻿//
+//
 // Created by maxy2 on 4/25/2026.
 //
 
-#ifndef NEWSTOMACHLANGAUGE_FOODS_H
-#define NEWSTOMACHLANGAUGE_FOODS_H
+#ifndef FOODS_H
+#define FOODS_H
 
 #include "Variable.h"
 #include <string>
@@ -32,4 +32,4 @@ public:
     Foods& operator=(Variable var2);
 };
 
-#endif //NEWSTOMACHLANGAUGE_FOODS_H
+#endif

@@ -1,9 +1,9 @@
-﻿//
+//
 // Created by maxy2 on 4/25/2026.
 //
 
-#ifndef NEWSTOMACHLANGAUGE_STOMACHLANG_H
-#define NEWSTOMACHLANGAUGE_STOMACHLANG_H
+#ifndef STOMACHLANG_H
+#define STOMACHLANG_H
 
 #include <iostream>
 #include <string>
@@ -35,4 +35,4 @@ public:
     static std::istream& eat();
 };
 
-#endif //NEWSTOMACHLANGAUGE_STOMACHLANG_H
+#endif 

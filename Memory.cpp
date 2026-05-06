@@ -1,4 +1,3 @@
-﻿
 
 #include "Memory.h"
 #include <iostream>

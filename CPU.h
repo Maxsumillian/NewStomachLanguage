@@ -1,9 +1,9 @@
-﻿//
+//
 // Created by maxy2 on 4/25/2026.
 //
 
-#ifndef NEWSTOMACHLANGAUGE_CPU_H
-#define NEWSTOMACHLANGAUGE_CPU_H
+#ifndef CPU_H
+#define CPU_H
 
 #include "Memory.h"
 #include <string>
@@ -96,4 +96,4 @@ public:
     void DEVELOPER_Print();
 };
 
-#endif //NEWSTOMACHLANGAUGE_CPU_H
+#endif
